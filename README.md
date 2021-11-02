@@ -7,6 +7,8 @@ Different UI for [larave/jeststream](https://github.com/laravel/jeststream).
 [![Stars](https://img.shields.io/github/stars/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/stargazers)
 [![Total Downloads](https://img.shields.io/packagist/dt/kamona/kui-laravel-jetstream.svg)](https://packagist.org/packages/kamona/kui-laravel-jetstream)
 
+#### [Breeze Version](https://github.com/Kamona-WD/kui-laravel-breeze)
+
 #### Note
 
 We recommend installing this package on a project that you are starting from scratch.
@@ -44,12 +46,14 @@ npm install && npm run dev # or yarn && yarn dev
 6. `npm install && npm run dev`
 7. `php artisan serve`
 
+> Do not change `APP_URL` in `.emv` file and run `php artisan storage:link` if you want to enable `manageProfilePicture` feature.
+
 #### Navigation
 
 You will found sidebar links in:
 
-- blade: `resources/views/components/sidebar/content.blade.php`.
-- vue: `resources/js/Components/Sidebar/SidebarContent.vue`
+- livewirw: `resources/views/components/sidebar/content.blade.php`.
+- inertia: `resources/js/Components/Sidebar/SidebarContent.vue`
 
 #### Screens
 
