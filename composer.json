@@ -1,0 +1,41 @@
+{
+  "name": "kamona/kui-laravel-jetstream",
+  "description": "Different UI for laravel/jetstream",
+  "keywords": [
+    "laravel",
+    "jetstream",
+    "tailwindcss",
+    "alpinejs",
+    "inertiajs",
+    "livewire",
+    "ui",
+    "dashboard"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Kamona-WD/kui-laravel-jetstream",
+  "authors": [
+    {
+      "name": "Kamona-WD",
+      "email": "ak3849909@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "laravel/jetstream": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "KUI\\Jetstream\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "KUI\\Jetstream\\KUIJetstreamServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

@@ -1,0 +1,22 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'vue-toastification/dist/index.css';
+@import 'perfect-scrollbar/css/perfect-scrollbar.css';
+@import 'tailwindcss/utilities';
+
+.dark .ps__rail-y,
+.dark .ps__rail-x {
+    background-color: transparent !important;
+}
+
+.Vue-Toastification__toast {
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.Vue-Toastification__toast--default,
+.Vue-Toastification__toast--success,
+.Vue-Toastification__toast--info,
+.Vue-Toastification__toast--error {
+    background-color: transparent !important;
+}
