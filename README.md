@@ -46,7 +46,7 @@ npm install && npm run dev # or yarn && yarn dev
 6. `npm install && npm run dev`
 7. `php artisan serve`
 
-> Do not change `APP_URL` in `.emv` file and run `php artisan storage:link` if you want to enable `manageProfilePicture` feature.
+> Do not forget to change `APP_URL` in `.emv` file and run `php artisan storage:link` if you want to enable `manageProfilePicture` feature.
 
 #### Navigation
 
