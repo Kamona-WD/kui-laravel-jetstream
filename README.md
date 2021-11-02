@@ -2,10 +2,10 @@
 
 Different UI for [larave/jeststream](https://github.com/laravel/jeststream).
 
-[![License](https://img.shields.io/github/license/Kamona-WD/kui-laravel-breeze)](https://github.com/Kamona-WD/kui-laravel-breeze/blob/main/LICENSE.md)
-[![Releases](https://img.shields.io/github/release/Kamona-WD/kui-laravel-breeze)](https://github.com/Kamona-WD/kui-laravel-breeze/releases)
-[![Stars](https://img.shields.io/github/stars/Kamona-WD/kui-laravel-breeze)](https://github.com/Kamona-WD/kui-laravel-breeze/stargazers)
-[![Total Downloads](https://img.shields.io/packagist/dt/kamona/kui-laravel-breeze.svg)](https://packagist.org/packages/kamona/kui-laravel-breeze)
+[![License](https://img.shields.io/github/license/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/blob/main/LICENSE.md)
+[![Releases](https://img.shields.io/github/release/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/releases)
+[![Stars](https://img.shields.io/github/stars/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/stargazers)
+[![Total Downloads](https://img.shields.io/packagist/dt/kamona/kui-laravel-jetstream.svg)](https://packagist.org/packages/kamona/kui-laravel-jetstream)
 
 #### Note
 
