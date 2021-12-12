@@ -1,6 +1,6 @@
 # K UI Jetstream starter
 
-Different UI for [larave/jeststream](https://github.com/laravel/jeststream).
+Different UI for [larave/jetstream](https://github.com/laravel/jetstream).
 
 [![License](https://img.shields.io/github/license/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/blob/main/LICENSE.md)
 [![Releases](https://img.shields.io/github/release/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/releases)
