@@ -45,9 +45,9 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection.vue'
-    import ConfirmationModal from '@/Components/ConfirmationModal.vue'
-    import Button from '@/Components/Button.vue'
+    import ActionSection from '@/Components/ActionSection'
+    import ConfirmationModal from '@/Components/ConfirmationModal'
+    import Button from '@/Components/Button'
 
     export default defineComponent({
         props: ['team'],

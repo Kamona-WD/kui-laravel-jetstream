@@ -37,11 +37,11 @@
 
 <script setup>
 import { defineComponent } from 'vue'
-import Banner from '@/Components/Banner.vue'
+import Banner from '@/Components/Banner'
 import { Head } from '@inertiajs/inertia-vue3'
-import Sidebar from '@/Components/Sidebar/Sidebar.vue'
-import Navbar from '@/Components/Navbar.vue'
-import PageFooter from '@/Components/PageFooter.vue'
+import Sidebar from '@/Components/Sidebar/Sidebar'
+import Navbar from '@/Components/Navbar'
+import PageFooter from '@/Components/PageFooter'
 import { sidebarState } from '@/Composables'
 
 const props = defineProps({

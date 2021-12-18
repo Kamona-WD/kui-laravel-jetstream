@@ -20,7 +20,7 @@
 
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import ApplicationLogo from '@/Components/ApplicationLogo'
 
 const props = defineProps(['terms'])
 </script>

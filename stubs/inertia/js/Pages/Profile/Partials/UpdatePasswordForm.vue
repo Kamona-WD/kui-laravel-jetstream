@@ -42,12 +42,12 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionMessage from '@/Components/ActionMessage.vue'
-    import Button from '@/Components/Button.vue'
-    import FormSection from '@/Components/FormSection.vue'
-    import Input from '@/Components/Input.vue'
-    import InputError from '@/Components/InputError.vue'
-    import Label from '@/Components/Label.vue'
+    import ActionMessage from '@/Components/ActionMessage'
+    import Button from '@/Components/Button'
+    import FormSection from '@/Components/FormSection'
+    import Input from '@/Components/Input'
+    import InputError from '@/Components/InputError'
+    import Label from '@/Components/Label'
 
     export default defineComponent({
         components: {

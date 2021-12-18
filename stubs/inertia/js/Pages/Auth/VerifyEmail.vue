@@ -24,8 +24,8 @@
 <script>
     import { defineComponent } from 'vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue'
-    import Button from '@/Components/Button.vue'
+    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+    import Button from '@/Components/Button'
 
     export default defineComponent({
         components: {

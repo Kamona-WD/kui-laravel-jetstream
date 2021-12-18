@@ -18,8 +18,8 @@
 
 <script setup>
     import { defineProps } from 'vue'
-    import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager.vue'
-    import AppLayout from '@/Layouts/AppLayout.vue'
+    import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager'
+    import AppLayout from '@/Layouts/AppLayout'
 
     const props = defineProps([
             'tokens',

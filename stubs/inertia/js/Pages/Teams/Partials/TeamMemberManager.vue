@@ -242,15 +242,15 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection.vue'
-    import Button from '@/Components/Button.vue'
-    import ConfirmationModal from '@/Components/ConfirmationModal.vue'
-    import DialogModal from '@/Components/DialogModal.vue'
-    import FormSection from '@/Components/FormSection.vue'
-    import Input from '@/Components/Input.vue'
-    import InputError from '@/Components/InputError.vue'
-    import Label from '@/Components/Label.vue'
-    import SectionBorder from '@/Components/SectionBorder.vue'
+    import ActionSection from '@/Components/ActionSection'
+    import Button from '@/Components/Button'
+    import ConfirmationModal from '@/Components/ConfirmationModal'
+    import DialogModal from '@/Components/DialogModal'
+    import FormSection from '@/Components/FormSection'
+    import Input from '@/Components/Input'
+    import InputError from '@/Components/InputError'
+    import Label from '@/Components/Label'
+    import SectionBorder from '@/Components/SectionBorder'
     import { successToast } from '@/Toast'
 
     export default defineComponent({

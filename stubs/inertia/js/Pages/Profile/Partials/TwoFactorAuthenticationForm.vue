@@ -86,9 +86,9 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection.vue'
-    import Button from '@/Components/Button.vue'
-    import ConfirmsPassword from '@/Components/ConfirmsPassword.vue'
+    import ActionSection from '@/Components/ActionSection'
+    import Button from '@/Components/Button'
+    import ConfirmsPassword from '@/Components/ConfirmsPassword'
 
     export default defineComponent({
         components: {

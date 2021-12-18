@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue'
-import Welcome from '@/Components/Welcome.vue'
-import Button from "@/Components/Button.vue";
+import AppLayout from '@/Layouts/AppLayout'
+import Welcome from '@/Components/Welcome'
+import Button from "@/Components/Button";
 import { GithubIcon } from "@/Components/Icons/Brands";
 </script>

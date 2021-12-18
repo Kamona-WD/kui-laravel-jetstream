@@ -34,8 +34,8 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/inertia-vue3'
 import { sidebarState } from '@/Composables'
-import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import ApplicationLogo from '@/Components/ApplicationLogo'
 import Button from '@/Components/Button.vue'
-import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/outline.jsx'
+import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/outline'
 import { XIcon } from '@heroicons/vue/outline'
 </script>

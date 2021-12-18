@@ -47,12 +47,12 @@
 <script>
     import { defineComponent } from 'vue';
     import { Head } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue'
-    import JetInputIconWrapper from '@/Components/InputIconWrapper.vue'
-    import JetButton from '@/Components/Button.vue'
-    import JetInput from '@/Components/Input.vue'
-    import JetLabel from '@/Components/Label.vue'
-    import JetValidationErrors from '@/Components/ValidationErrors.vue'
+    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+    import JetInputIconWrapper from '@/Components/InputIconWrapper'
+    import JetButton from '@/Components/Button'
+    import JetInput from '@/Components/Input'
+    import JetLabel from '@/Components/Label'
+    import JetValidationErrors from '@/Components/ValidationErrors'
     import { MailIcon, LockClosedIcon } from '@heroicons/vue/outline';
 
     export default defineComponent({

@@ -46,11 +46,11 @@
 <script>
     import { defineComponent } from 'vue';
     import { Head } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue'
-    import Button from '@/Components/Button.vue'
-    import Input from '@/Components/Input.vue'
-    import Label from '@/Components/Label.vue'
-    import ValidationErrors from '@/Components/ValidationErrors.vue'
+    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+    import Button from '@/Components/Button'
+    import Input from '@/Components/Input'
+    import Label from '@/Components/Label'
+    import ValidationErrors from '@/Components/ValidationErrors'
 
     export default defineComponent({
         components: {

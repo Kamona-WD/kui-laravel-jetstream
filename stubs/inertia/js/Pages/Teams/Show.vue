@@ -70,12 +70,12 @@
 
 <script setup>
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import AppLayout from '@/Layouts/AppLayout.vue'
-import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm.vue'
-import SectionBorder from '@/Components/SectionBorder.vue'
-import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager.vue'
-import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm.vue'
-import TabButton from '@/Pages/Teams/Partials/TabButton.vue'
+import AppLayout from '@/Layouts/AppLayout'
+import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm'
+import SectionBorder from '@/Components/SectionBorder'
+import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager'
+import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm'
+import TabButton from '@/Pages/Teams/Partials/TabButton'
 
 const props = defineProps(['team', 'availableRoles', 'permissions'])
 </script>

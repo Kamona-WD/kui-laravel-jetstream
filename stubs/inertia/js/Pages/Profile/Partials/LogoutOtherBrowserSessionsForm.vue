@@ -88,12 +88,12 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionMessage from '@/Components/ActionMessage.vue'
-    import ActionSection from '@/Components/ActionSection.vue'
-    import Button from '@/Components/Button.vue'
-    import DialogModal from '@/Components/DialogModal.vue'
-    import Input from '@/Components/Input.vue'
-    import InputError from '@/Components/InputError.vue'
+    import ActionMessage from '@/Components/ActionMessage'
+    import ActionSection from '@/Components/ActionSection'
+    import Button from '@/Components/Button'
+    import DialogModal from '@/Components/DialogModal'
+    import Input from '@/Components/Input'
+    import InputError from '@/Components/InputError'
 
     export default defineComponent({
         props: ['sessions'],

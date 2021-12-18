@@ -54,11 +54,11 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection.vue'
-    import DialogModal from '@/Components/DialogModal.vue'
-    import Button from '@/Components/Button.vue'
-    import Input from '@/Components/Input.vue'
-    import InputError from '@/Components/InputError.vue'
+    import ActionSection from '@/Components/ActionSection'
+    import DialogModal from '@/Components/DialogModal'
+    import Button from '@/Components/Button'
+    import Input from '@/Components/Input'
+    import InputError from '@/Components/InputError'
 
     export default defineComponent({
         components: {
