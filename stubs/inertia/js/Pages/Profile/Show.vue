@@ -33,7 +33,7 @@
 
                     <TabButton
                         v-if="$page.props.jetstream.hasAccountDeletionFeatures"
-                        title="Two Factor Authentication"
+                        title="Delete Account"
                     />
                 </TabList>
 

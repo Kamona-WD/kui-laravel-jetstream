@@ -60,8 +60,11 @@ class ReplaceCommand extends Command
                 '@vue/babel-plugin-jsx' => '^1.1.0',
                 'autoprefixer' => '^10.3.7',
                 'postcss' => '^8.3.9',
-                'tailwindcss' => '^2.2.16',
+                'tailwindcss' => '^3.0.7',
+                '@tailwindcss/forms' => '^0.4.0',
+                '@tailwindcss/typography' => '^0.5.0',
                 'perfect-scrollbar' => '^1.5.2',
+                'vue' => '^3.2.26',
                 'vue-toastification' => '^2.0.0-rc.1'
             ] + $packages;
         });
@@ -103,7 +106,9 @@ class ReplaceCommand extends Command
                 'alpinejs' => '^3.4.2',
                 'autoprefixer' => '^10.3.7',
                 'postcss' => '^8.3.9',
-                'tailwindcss' => '^2.2.16',
+                'tailwindcss' => '^3.0.7',
+                '@tailwindcss/forms' => '^0.4.0',
+                '@tailwindcss/typography' => '^0.5.0',
                 'perfect-scrollbar' => '^1.5.2'
             ] + $packages;
         });
