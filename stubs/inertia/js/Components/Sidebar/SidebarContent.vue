@@ -28,7 +28,7 @@
 <script setup>
 import PerfrectScrollbar from '@/Components/PerfectScrollbar'
 import SidebarLink from '@/Components/Sidebar/SidebarLink'
-import { DashboardIcon } from '@/Components/Icons/outline'
+import { DashboardIcon } from '@/Components/Icons/Outline'
 import SidebarCollapsible from '@/Components/Sidebar/SidebarCollapsible'
 import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem'
 </script>
