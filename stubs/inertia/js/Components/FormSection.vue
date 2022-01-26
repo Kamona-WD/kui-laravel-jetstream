@@ -23,14 +23,14 @@
 </template>
 
 <script setup>
-    import { defineComponent, defineEmits, useSlots, computed } from 'vue'
-    import SectionTitle from '@/Components/SectionTitle.vue'
+import { useSlots, computed } from 'vue'
+import SectionTitle from '@/Components/SectionTitle'
 
-    const emits = defineEmits(['submitted'])
+const emits = defineEmits(['submitted'])
 
-    const slots = useSlots()
+const slots = useSlots()
 
-    const hasActions = computed(() => {
-         return !! slots.actions
-    })
+const hasActions = computed(() => {
+        return !! slots.actions
+})
 </script>

@@ -53,53 +53,53 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection'
-    import DialogModal from '@/Components/DialogModal'
-    import Button from '@/Components/Button'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
+import { defineComponent } from 'vue'
+import ActionSection from '@/Components/ActionSection'
+import DialogModal from '@/Components/DialogModal'
+import Button from '@/Components/Button'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
 
-    export default defineComponent({
-        components: {
-            ActionSection,
-            DialogModal,
-            Input,
-            InputError,
-            Button
+export default defineComponent({
+    components: {
+        ActionSection,
+        DialogModal,
+        Input,
+        InputError,
+        Button
+    },
+
+    data() {
+        return {
+            confirmingUserDeletion: false,
+
+            form: this.$inertia.form({
+                password: '',
+            })
+        }
+    },
+
+    methods: {
+        confirmUserDeletion() {
+            this.confirmingUserDeletion = true;
+
+            setTimeout(() => this.$refs.password.focus(), 250)
         },
 
-        data() {
-            return {
-                confirmingUserDeletion: false,
-
-                form: this.$inertia.form({
-                    password: '',
-                })
-            }
+        deleteUser() {
+            this.form.delete(route('current-user.destroy'), {
+                preserveScroll: true,
+                onSuccess: () => this.closeModal(),
+                onError: () => this.$refs.password.focus(),
+                onFinish: () => this.form.reset(),
+            })
         },
 
-        methods: {
-            confirmUserDeletion() {
-                this.confirmingUserDeletion = true;
+        closeModal() {
+            this.confirmingUserDeletion = false
 
-                setTimeout(() => this.$refs.password.focus(), 250)
-            },
-
-            deleteUser() {
-                this.form.delete(route('current-user.destroy'), {
-                    preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
-                    onError: () => this.$refs.password.focus(),
-                    onFinish: () => this.form.reset(),
-                })
-            },
-
-            closeModal() {
-                this.confirmingUserDeletion = false
-
-                this.form.reset()
-            },
+            this.form.reset()
         },
-    })
+    },
+})
 </script>

@@ -45,51 +45,51 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue';
-    import { Head } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import JetInputIconWrapper from '@/Components/InputIconWrapper'
-    import JetButton from '@/Components/Button'
-    import JetInput from '@/Components/Input'
-    import JetLabel from '@/Components/Label'
-    import JetValidationErrors from '@/Components/ValidationErrors'
-    import { MailIcon, LockClosedIcon } from '@heroicons/vue/outline';
+import { defineComponent } from 'vue'
+import { Head } from '@inertiajs/inertia-vue3'
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import JetInputIconWrapper from '@/Components/InputIconWrapper'
+import JetButton from '@/Components/Button'
+import JetInput from '@/Components/Input'
+import JetLabel from '@/Components/Label'
+import JetValidationErrors from '@/Components/ValidationErrors'
+import { MailIcon, LockClosedIcon } from '@heroicons/vue/outline'
 
-    export default defineComponent({
-        layout: AuthenticationLayout,
-        components: {
-            Head,
-            JetInputIconWrapper,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors,
-            MailIcon, 
-            LockClosedIcon
-        },
+export default defineComponent({
+    layout: AuthenticationLayout,
+    components: {
+        Head,
+        JetInputIconWrapper,
+        JetButton,
+        JetInput,
+        JetLabel,
+        JetValidationErrors,
+        MailIcon, 
+        LockClosedIcon
+    },
 
-        props: {
-            email: String,
-            token: String,
-        },
+    props: {
+        email: String,
+        token: String,
+    },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    token: this.token,
-                    email: this.email,
-                    password: '',
-                    password_confirmation: '',
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.update'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
-            }
+    data() {
+        return {
+            form: this.$inertia.form({
+                token: this.token,
+                email: this.email,
+                password: '',
+                password_confirmation: '',
+            })
         }
-    })
+    },
+
+    methods: {
+        submit() {
+            this.form.post(this.route('password.update'), {
+                onFinish: () => this.form.reset('password', 'password_confirmation'),
+            })
+        }
+    }
+})
 </script>

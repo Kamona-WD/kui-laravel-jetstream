@@ -94,5 +94,5 @@
 </template>
 
 <script setup>
-    import JetApplicationLogo from '@/Components/ApplicationMark.vue'
+import JetApplicationLogo from '@/Components/ApplicationMark'
 </script>

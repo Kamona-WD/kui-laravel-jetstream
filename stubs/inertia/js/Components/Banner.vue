@@ -38,23 +38,23 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-    export default defineComponent({
-        data() {
-            return {
-                show: true,
-            }
+export default defineComponent({
+    data() {
+        return {
+            show: true,
+        }
+    },
+
+    computed: {
+        style() {
+            return this.$page.props.jetstream.flash?.bannerStyle || 'success'
         },
 
-        computed: {
-            style() {
-                return this.$page.props.jetstream.flash?.bannerStyle || 'success'
-            },
-
-            message() {
-                return this.$page.props.jetstream.flash?.banner || ''
-            },
-        }
-    })
+        message() {
+            return this.$page.props.jetstream.flash?.banner || ''
+        },
+    }
+})
 </script>

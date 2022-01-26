@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import Modal from '@/Components/Modal.vue'
+import Modal from '@/Components/Modal'
 
 const props = defineProps({
     show: {

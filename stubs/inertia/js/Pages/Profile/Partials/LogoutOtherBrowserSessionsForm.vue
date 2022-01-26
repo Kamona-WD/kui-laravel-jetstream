@@ -87,57 +87,57 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import ActionMessage from '@/Components/ActionMessage'
-    import ActionSection from '@/Components/ActionSection'
-    import Button from '@/Components/Button'
-    import DialogModal from '@/Components/DialogModal'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
+import { defineComponent } from 'vue'
+import ActionMessage from '@/Components/ActionMessage'
+import ActionSection from '@/Components/ActionSection'
+import Button from '@/Components/Button'
+import DialogModal from '@/Components/DialogModal'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
 
-    export default defineComponent({
-        props: ['sessions'],
+export default defineComponent({
+    props: ['sessions'],
 
-        components: {
-            ActionMessage,
-            ActionSection,
-            Button,
-            DialogModal,
-            Input,
-            InputError,
+    components: {
+        ActionMessage,
+        ActionSection,
+        Button,
+        DialogModal,
+        Input,
+        InputError,
+    },
+
+    data() {
+        return {
+            confirmingLogout: false,
+
+            form: this.$inertia.form({
+                password: '',
+            })
+        }
+    },
+
+    methods: {
+        confirmLogout() {
+            this.confirmingLogout = true
+
+            setTimeout(() => this.$refs.password.focus(), 250)
         },
 
-        data() {
-            return {
-                confirmingLogout: false,
-
-                form: this.$inertia.form({
-                    password: '',
-                })
-            }
+        logoutOtherBrowserSessions() {
+            this.form.delete(route('other-browser-sessions.destroy'), {
+                preserveScroll: true,
+                onSuccess: () => this.closeModal(),
+                onError: () => this.$refs.password.focus(),
+                onFinish: () => this.form.reset(),
+            })
         },
 
-        methods: {
-            confirmLogout() {
-                this.confirmingLogout = true
+        closeModal() {
+            this.confirmingLogout = false
 
-                setTimeout(() => this.$refs.password.focus(), 250)
-            },
-
-            logoutOtherBrowserSessions() {
-                this.form.delete(route('other-browser-sessions.destroy'), {
-                    preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
-                    onError: () => this.$refs.password.focus(),
-                    onFinish: () => this.form.reset(),
-                })
-            },
-
-            closeModal() {
-                this.confirmingLogout = false
-
-                this.form.reset()
-            },
+            this.form.reset()
         },
-    })
+    },
+})
 </script>

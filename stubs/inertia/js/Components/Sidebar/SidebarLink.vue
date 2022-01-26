@@ -52,10 +52,9 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import { Link } from '@inertiajs/inertia-vue3'
 import { sidebarState } from '@/Composables'
-import { EmptyCircleIcon } from '@/Components/Icons/outline'
+import { EmptyCircleIcon } from '@/Components/Icons/Outline'
 
 const props = defineProps({
         href: {

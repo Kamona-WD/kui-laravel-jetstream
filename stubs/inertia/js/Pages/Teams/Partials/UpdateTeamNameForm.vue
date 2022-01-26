@@ -46,45 +46,45 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import Button from '@/Components/Button'
-    import FormSection from '@/Components/FormSection'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
-    import Label from '@/Components/Label'
-    import { successToast } from '@/Toast'
+import { defineComponent } from 'vue'
+import Button from '@/Components/Button'
+import FormSection from '@/Components/FormSection'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
+import Label from '@/Components/Label'
+import { successToast } from '@/Toast'
 
-    export default defineComponent({
-        components: {
-            Button,
-            FormSection,
-            Input,
-            InputError,
-            Label,
+export default defineComponent({
+    components: {
+        Button,
+        FormSection,
+        Input,
+        InputError,
+        Label,
+    },
+
+    props: ['team', 'permissions'],
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: this.team.name,
+            })
+        }
+    },
+
+    methods: {
+        updateTeamName() {
+            this.form.put(route('teams.update', this.team), {
+                errorBag: 'updateTeamName',
+                preserveScroll: true,
+                onSuccess: () => {
+                    successToast({
+                        text: 'Team\'s name updated successfully! :)'
+                    })
+                }
+            });
         },
-
-        props: ['team', 'permissions'],
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: this.team.name,
-                })
-            }
-        },
-
-        methods: {
-            updateTeamName() {
-                this.form.put(route('teams.update', this.team), {
-                    errorBag: 'updateTeamName',
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        successToast({
-                            text: 'Team\'s name updated successfully! :)'
-                        })
-                    }
-                });
-            },
-        },
-    })
+    },
+})
 </script>

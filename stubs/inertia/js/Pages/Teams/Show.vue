@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue'
 import AppLayout from '@/Layouts/AppLayout'
 import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm'
 import SectionBorder from '@/Components/SectionBorder'

@@ -38,37 +38,37 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import Button from '@/Components/Button'
-    import FormSection from '@/Components/FormSection'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
-    import Label from '@/Components/Label'
+import { defineComponent } from 'vue'
+import Button from '@/Components/Button'
+import FormSection from '@/Components/FormSection'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
+import Label from '@/Components/Label'
 
-    export default defineComponent({
-        components: {
-            Button,
-            FormSection,
-            Input,
-            InputError,
-            Label,
-        },
+export default defineComponent({
+    components: {
+        Button,
+        FormSection,
+        Input,
+        InputError,
+        Label,
+    },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: '',
-                })
-            }
-        },
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: '',
+            })
+        }
+    },
 
-        methods: {
-            createTeam() {
-                this.form.post(route('teams.store'), {
-                    errorBag: 'createTeam',
-                    preserveScroll: true
-                });
-            },
+    methods: {
+        createTeam() {
+            this.form.post(route('teams.store'), {
+                errorBag: 'createTeam',
+                preserveScroll: true
+            });
         },
-    })
+    },
+})
 </script>

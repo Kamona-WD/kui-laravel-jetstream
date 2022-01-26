@@ -241,115 +241,115 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection'
-    import Button from '@/Components/Button'
-    import ConfirmationModal from '@/Components/ConfirmationModal'
-    import DialogModal from '@/Components/DialogModal'
-    import FormSection from '@/Components/FormSection'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
-    import Label from '@/Components/Label'
-    import SectionBorder from '@/Components/SectionBorder'
-    import { successToast } from '@/Toast'
+import { defineComponent } from 'vue'
+import ActionSection from '@/Components/ActionSection'
+import Button from '@/Components/Button'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import DialogModal from '@/Components/DialogModal'
+import FormSection from '@/Components/FormSection'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
+import Label from '@/Components/Label'
+import SectionBorder from '@/Components/SectionBorder'
+import { successToast } from '@/Toast'
 
-    export default defineComponent({
-        components: {
-            ActionSection,
-            Button,
-            ConfirmationModal,
-            DialogModal,
-            FormSection,
-            Input,
-            InputError,
-            Label,
-            SectionBorder,
+export default defineComponent({
+    components: {
+        ActionSection,
+        Button,
+        ConfirmationModal,
+        DialogModal,
+        FormSection,
+        Input,
+        InputError,
+        Label,
+        SectionBorder,
+    },
+
+    props: [
+        'team',
+        'availableRoles',
+        'userPermissions'
+    ],
+
+    data() {
+        return {
+            addTeamMemberForm: this.$inertia.form({
+                email: '',
+                role: null,
+            }),
+
+            updateRoleForm: this.$inertia.form({
+                role: null,
+            }),
+
+            leaveTeamForm: this.$inertia.form(),
+            removeTeamMemberForm: this.$inertia.form(),
+
+            currentlyManagingRole: false,
+            managingRoleFor: null,
+            confirmingLeavingTeam: false,
+            teamMemberBeingRemoved: null,
+        }
+    },
+
+    methods: {
+        addTeamMember() {
+            this.addTeamMemberForm.post(route('team-members.store', this.team), {
+                errorBag: 'addTeamMember',
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.addTeamMemberForm.reset()
+                    successToast({
+                        text: 'Member add successfully! :)'
+                    })
+                },
+            });
         },
 
-        props: [
-            'team',
-            'availableRoles',
-            'userPermissions'
-        ],
-
-        data() {
-            return {
-                addTeamMemberForm: this.$inertia.form({
-                    email: '',
-                    role: null,
-                }),
-
-                updateRoleForm: this.$inertia.form({
-                    role: null,
-                }),
-
-                leaveTeamForm: this.$inertia.form(),
-                removeTeamMemberForm: this.$inertia.form(),
-
-                currentlyManagingRole: false,
-                managingRoleFor: null,
-                confirmingLeavingTeam: false,
-                teamMemberBeingRemoved: null,
-            }
+        cancelTeamInvitation(invitation) {
+            this.$inertia.delete(route('team-invitations.destroy', invitation), {
+                preserveScroll: true
+            });
         },
 
-        methods: {
-            addTeamMember() {
-                this.addTeamMemberForm.post(route('team-members.store', this.team), {
-                    errorBag: 'addTeamMember',
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.addTeamMemberForm.reset()
-                        successToast({
-                            text: 'Member add successfully! :)'
-                        })
-                    },
-                });
-            },
-
-            cancelTeamInvitation(invitation) {
-                this.$inertia.delete(route('team-invitations.destroy', invitation), {
-                    preserveScroll: true
-                });
-            },
-
-            manageRole(teamMember) {
-                this.managingRoleFor = teamMember
-                this.updateRoleForm.role = teamMember.membership.role
-                this.currentlyManagingRole = true
-            },
-
-            updateRole() {
-                this.updateRoleForm.put(route('team-members.update', [this.team, this.managingRoleFor]), {
-                    preserveScroll: true,
-                    onSuccess: () => (this.currentlyManagingRole = false),
-                })
-            },
-
-            confirmLeavingTeam() {
-                this.confirmingLeavingTeam = true
-            },
-
-            leaveTeam() {
-                this.leaveTeamForm.delete(route('team-members.destroy', [this.team, this.$page.props.user]))
-            },
-
-            confirmTeamMemberRemoval(teamMember) {
-                this.teamMemberBeingRemoved = teamMember
-            },
-
-            removeTeamMember() {
-                this.removeTeamMemberForm.delete(route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
-                    errorBag: 'removeTeamMember',
-                    preserveScroll: true,
-                    preserveState: true,
-                    onSuccess: () => (this.teamMemberBeingRemoved = null),
-                })
-            },
-
-            displayableRole(role) {
-                return this.availableRoles.find(r => r.key === role).name
-            },
+        manageRole(teamMember) {
+            this.managingRoleFor = teamMember
+            this.updateRoleForm.role = teamMember.membership.role
+            this.currentlyManagingRole = true
         },
-    })
+
+        updateRole() {
+            this.updateRoleForm.put(route('team-members.update', [this.team, this.managingRoleFor]), {
+                preserveScroll: true,
+                onSuccess: () => (this.currentlyManagingRole = false),
+            })
+        },
+
+        confirmLeavingTeam() {
+            this.confirmingLeavingTeam = true
+        },
+
+        leaveTeam() {
+            this.leaveTeamForm.delete(route('team-members.destroy', [this.team, this.$page.props.user]))
+        },
+
+        confirmTeamMemberRemoval(teamMember) {
+            this.teamMemberBeingRemoved = teamMember
+        },
+
+        removeTeamMember() {
+            this.removeTeamMemberForm.delete(route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
+                errorBag: 'removeTeamMember',
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => (this.teamMemberBeingRemoved = null),
+            })
+        },
+
+        displayableRole(role) {
+            return this.availableRoles.find(r => r.key === role).name
+        },
+    },
+})
 </script>

@@ -32,10 +32,10 @@
 </template>
 
 <script setup>
-import { Link, usePage } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/inertia-vue3'
 import { sidebarState } from '@/Composables'
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import Button from '@/Components/Button.vue'
-import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/outline'
+import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/Outline'
 import { XIcon } from '@heroicons/vue/outline'
 </script>

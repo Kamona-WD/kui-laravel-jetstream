@@ -36,78 +36,78 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import Button from '@/Components/Button.vue'
-    import DialogModal from '@/Components/DialogModal.vue'
-    import Input from '@/Components/Input.vue'
-    import InputError from '@/Components/InputError.vue'
+import { defineComponent } from 'vue'
+import Button from '@/Components/Button'
+import DialogModal from '@/Components/DialogModal'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
 
-    export default defineComponent({
-        emits: ['confirmed'],
+export default defineComponent({
+    emits: ['confirmed'],
 
-        props: {
-            title: {
-                default: 'Confirm Password',
-            },
-            content: {
-                default: 'For your security, please confirm your password to continue.',
-            },
-            button: {
-                default: 'Confirm',
-            }
+    props: {
+        title: {
+            default: 'Confirm Password',
         },
-
-        components: {
-            Button,
-            DialogModal,
-            Input,
-            InputError,
+        content: {
+            default: 'For your security, please confirm your password to continue.',
         },
+        button: {
+            default: 'Confirm',
+        }
+    },
 
-        data() {
-            return {
-                confirmingPassword: false,
-                form: {
-                    password: '',
-                    error: '',
-                },
-            }
-        },
+    components: {
+        Button,
+        DialogModal,
+        Input,
+        InputError,
+    },
 
-        methods: {
-            startConfirmingPassword() {
-                axios.get(route('password.confirmation')).then(response => {
-                    if (response.data.confirmed) {
-                        this.$emit('confirmed');
-                    } else {
-                        this.confirmingPassword = true;
-
-                        setTimeout(() => this.$refs.password.focus(), 250)
-                    }
-                })
-            },
-
-            confirmPassword() {
-                this.form.processing = true;
-
-                axios.post(route('password.confirm'), {
-                    password: this.form.password,
-                }).then(() => {
-                    this.form.processing = false;
-                    this.closeModal()
-                    this.$nextTick(() => this.$emit('confirmed'));
-                }).catch(error => {
-                    this.form.processing = false;
-                    this.form.error = error.response.data.errors.password[0];
-                    this.$refs.password.focus()
-                });
-            },
-
-            closeModal() {
-                this.confirmingPassword = false
-                this.form.password = '';
-                this.form.error = '';
+    data() {
+        return {
+            confirmingPassword: false,
+            form: {
+                password: '',
+                error: '',
             },
         }
-    })
+    },
+
+    methods: {
+        startConfirmingPassword() {
+            axios.get(route('password.confirmation')).then(response => {
+                if (response.data.confirmed) {
+                    this.$emit('confirmed');
+                } else {
+                    this.confirmingPassword = true;
+
+                    setTimeout(() => this.$refs.password.focus(), 250)
+                }
+            })
+        },
+
+        confirmPassword() {
+            this.form.processing = true;
+
+            axios.post(route('password.confirm'), {
+                password: this.form.password,
+            }).then(() => {
+                this.form.processing = false;
+                this.closeModal()
+                this.$nextTick(() => this.$emit('confirmed'));
+            }).catch(error => {
+                this.form.processing = false;
+                this.form.error = error.response.data.errors.password[0];
+                this.$refs.password.focus()
+            });
+        },
+
+        closeModal() {
+            this.confirmingPassword = false
+            this.form.password = '';
+            this.form.error = '';
+        },
+    }
+})
 </script>

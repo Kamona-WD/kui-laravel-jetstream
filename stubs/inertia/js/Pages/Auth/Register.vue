@@ -76,27 +76,27 @@
 </template>
 
 <script setup>
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import InputIconWrapper from '@/Components/InputIconWrapper'
-    import Button from '@/Components/Button'
-    import Input from '@/Components/Input'
-    import Checkbox from '@/Components/Checkbox'
-    import Label from '@/Components/Label'
-    import ValidationErrors from '@/Components/ValidationErrors'
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-    import { UserIcon, MailIcon, LockClosedIcon, UserAddIcon } from '@heroicons/vue/outline'
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import InputIconWrapper from '@/Components/InputIconWrapper'
+import Button from '@/Components/Button'
+import Input from '@/Components/Input'
+import Checkbox from '@/Components/Checkbox'
+import Label from '@/Components/Label'
+import ValidationErrors from '@/Components/ValidationErrors'
+import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { UserIcon, MailIcon, LockClosedIcon, UserAddIcon } from '@heroicons/vue/outline'
 
-    const form = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        terms: false,
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    terms: false,
+})
+
+const submit = () => {
+    form.post(route('register'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
     })
-
-    const submit = () => {
-            form.post(route('register'), {
-                onFinish: () => form.reset('password', 'password_confirmation'),
-            })
-    }
+}
 </script>

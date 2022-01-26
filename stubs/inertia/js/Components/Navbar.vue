@@ -222,7 +222,7 @@
 </template>
 
 <script setup>
-    import { defineComponent, onMounted, onUnmounted, Transition } from 'vue'
+    import { onMounted, onUnmounted } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import { useFullscreen } from '@vueuse/core'
@@ -234,7 +234,7 @@
         XIcon,
         ArrowsExpandIcon
     } from '@heroicons/vue/outline'
-    import { ArrowsInnerIcon } from '@/Components/Icons/outline.jsx'
+    import { ArrowsInnerIcon } from '@/Components/Icons/Outline'
     import {
         handleScroll,
         isDark,

@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue'
 import AppLayout from '@/Layouts/AppLayout'
 import TabButton from '@/Pages/Profile/Partials/TabButton'
 import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm'

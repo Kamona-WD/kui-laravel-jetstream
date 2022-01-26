@@ -17,13 +17,12 @@
 </template>
 
 <script setup>
-    import { defineProps } from 'vue'
-    import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager'
-    import AppLayout from '@/Layouts/AppLayout'
+import ApiTokenManager from '@/Pages/API/Partials/ApiTokenManager'
+import AppLayout from '@/Layouts/AppLayout'
 
-    const props = defineProps([
-            'tokens',
-            'availablePermissions',
-            'defaultPermissions',
-    ])
+const props = defineProps([
+    'tokens',
+    'availablePermissions',
+    'defaultPermissions',
+])
 </script>

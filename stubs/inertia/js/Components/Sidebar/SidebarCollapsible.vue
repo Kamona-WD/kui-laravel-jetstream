@@ -61,10 +61,10 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { sidebarState } from '@/Composables'
 import SidebarLink from '@/Components/Sidebar/SidebarLink'
-import { EmptyCircleIcon } from '@/Components/Icons/outline'
+import { EmptyCircleIcon } from '@/Components/Icons/Outline'
 
 const props = defineProps({
             title: {

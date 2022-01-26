@@ -46,13 +46,11 @@
 </template>
 
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3'
 import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
 import InputIconWrapper from '@/Components/InputIconWrapper'
 import Button from '@/Components/Button'
 import Input from '@/Components/Input'
 import Label from '@/Components/Label'
-import ValidationErrors from '@/Components/ValidationErrors'
 import { LockClosedIcon } from '@heroicons/vue/outline'
 
 const form = useForm({

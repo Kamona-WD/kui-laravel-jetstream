@@ -22,38 +22,39 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import Button from '@/Components/Button'
+import { defineComponent } from 'vue'
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import Button from '@/Components/Button'
 
-    export default defineComponent({
-        components: {
-            Head,
-            Button,
-            Link,
-        },
+export default defineComponent({
+    components: {
+        Head,
+        Button,
+        Link,
+        AuthenticationLayout,
+    },
 
-        props: {
-            status: String
-        },
+    props: {
+        status: String
+    },
 
-        data() {
-            return {
-                form: this.$inertia.form()
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('verification.send'))
-            },
-        },
-
-        computed: {
-            verificationLinkSent() {
-                return this.status === 'verification-link-sent';
-            }
+    data() {
+        return {
+            form: this.$inertia.form()
         }
-    })
+    },
+
+    methods: {
+        submit() {
+            this.form.post(this.route('verification.send'))
+        },
+    },
+
+    computed: {
+        verificationLinkSent() {
+            return this.status === 'verification-link-sent';
+        }
+    }
+})
 </script>

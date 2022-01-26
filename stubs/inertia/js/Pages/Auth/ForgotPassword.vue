@@ -35,24 +35,24 @@
 </template>
 
 <script setup>
-    import { Head, useForm } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import InputIconWrapper from '@/Components/InputIconWrapper'
-    import Button from '@/Components/Button'
-    import Input from '@/Components/Input'
-    import Label from '@/Components/Label'
-    import ValidationErrors from '@/Components/ValidationErrors'
-    import { MailIcon, PaperAirplaneIcon } from '@heroicons/vue/outline';
+import { useForm } from '@inertiajs/inertia-vue3';
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import InputIconWrapper from '@/Components/InputIconWrapper'
+import Button from '@/Components/Button'
+import Input from '@/Components/Input'
+import Label from '@/Components/Label'
+import ValidationErrors from '@/Components/ValidationErrors'
+import { MailIcon, PaperAirplaneIcon } from '@heroicons/vue/outline';
 
-    const props = defineProps({
-        status: String
-    })
+const props = defineProps({
+    status: String
+})
 
-    const form = useForm({
-        email: ''
-    })
+const form = useForm({
+    email: ''
+})
 
-    const submit = () => {
-        form.post(route('password.email'))
-    }
+const submit = () => {
+    form.post(route('password.email'))
+}
 </script>

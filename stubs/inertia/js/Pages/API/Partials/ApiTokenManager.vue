@@ -233,7 +233,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useForm } from '@inertiajs/inertia-vue3'
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue'
 import ActionSection from '@/Components/ActionSection'
 import Button from '@/Components/Button'
 import ConfirmationModal from '@/Components/ConfirmationModal'
@@ -243,7 +243,6 @@ import Input from '@/Components/Input'
 import Checkbox from '@/Components/Checkbox'
 import InputError from '@/Components/InputError'
 import Label from '@/Components/Label'
-import SectionBorder from '@/Components/SectionBorder'
 import TabButton from '@/Pages/API/Partials/TabButton'
 import { successToast } from '@/Toast'
 

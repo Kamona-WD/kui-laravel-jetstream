@@ -69,91 +69,91 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import Button from '@/Components/Button'
-    import FormSection from '@/Components/FormSection'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
-    import Label from '@/Components/Label'
-    import ActionMessage from '@/Components/ActionMessage'
-    import { successToast } from '@/Toast'
+import { defineComponent } from 'vue'
+import Button from '@/Components/Button'
+import FormSection from '@/Components/FormSection'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
+import Label from '@/Components/Label'
+import ActionMessage from '@/Components/ActionMessage'
+import { successToast } from '@/Toast'
 
-    export default defineComponent({
-        components: {
-            ActionMessage,
-            Button,
-            FormSection,
-            Input,
-            InputError,
-            Label,
+export default defineComponent({
+    components: {
+        ActionMessage,
+        Button,
+        FormSection,
+        Input,
+        InputError,
+        Label,
+    },
+
+    props: ['user'],
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                _method: 'PUT',
+                name: this.user.name,
+                email: this.user.email,
+                photo: null,
+            }),
+
+            photoPreview: null,
+        }
+    },
+
+    methods: {
+        updateProfileInformation() {
+            if (this.$refs.photo) {
+                this.form.photo = this.$refs.photo.files[0]
+            }
+
+            this.form.post(route('user-profile-information.update'), {
+                errorBag: 'updateProfileInformation',
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.clearPhotoFileInput()
+                    successToast({
+                        text: 'Profile Information Updated successfully! :)'
+                    })
+                },
+            });
         },
 
-        props: ['user'],
+        selectNewPhoto() {
+            this.$refs.photo.click();
+        },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    _method: 'PUT',
-                    name: this.user.name,
-                    email: this.user.email,
-                    photo: null,
-                }),
+        updatePhotoPreview() {
+            const photo = this.$refs.photo.files[0];
 
-                photoPreview: null,
+            if (! photo) return;
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                this.photoPreview = e.target.result;
+            };
+
+            reader.readAsDataURL(photo);
+        },
+
+        deletePhoto() {
+            this.$inertia.delete(route('current-user-photo.destroy'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.photoPreview = null;
+                    this.clearPhotoFileInput();
+                },
+            });
+        },
+
+        clearPhotoFileInput() {
+            if (this.$refs.photo?.value) {
+                this.$refs.photo.value = null;
             }
         },
-
-        methods: {
-            updateProfileInformation() {
-                if (this.$refs.photo) {
-                    this.form.photo = this.$refs.photo.files[0]
-                }
-
-                this.form.post(route('user-profile-information.update'), {
-                    errorBag: 'updateProfileInformation',
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.clearPhotoFileInput()
-                        successToast({
-                            text: 'Profile Information Updated successfully! :)'
-                        })
-                    },
-                });
-            },
-
-            selectNewPhoto() {
-                this.$refs.photo.click();
-            },
-
-            updatePhotoPreview() {
-                const photo = this.$refs.photo.files[0];
-
-                if (! photo) return;
-
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    this.photoPreview = e.target.result;
-                };
-
-                reader.readAsDataURL(photo);
-            },
-
-            deletePhoto() {
-                this.$inertia.delete(route('current-user-photo.destroy'), {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.photoPreview = null;
-                        this.clearPhotoFileInput();
-                    },
-                });
-            },
-
-            clearPhotoFileInput() {
-                if (this.$refs.photo?.value) {
-                    this.$refs.photo.value = null;
-                }
-            },
-        },
-    })
+    },
+})
 </script>

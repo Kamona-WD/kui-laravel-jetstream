@@ -41,53 +41,53 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import ActionMessage from '@/Components/ActionMessage'
-    import Button from '@/Components/Button'
-    import FormSection from '@/Components/FormSection'
-    import Input from '@/Components/Input'
-    import InputError from '@/Components/InputError'
-    import Label from '@/Components/Label'
+import { defineComponent } from 'vue'
+import ActionMessage from '@/Components/ActionMessage'
+import Button from '@/Components/Button'
+import FormSection from '@/Components/FormSection'
+import Input from '@/Components/Input'
+import InputError from '@/Components/InputError'
+import Label from '@/Components/Label'
 
-    export default defineComponent({
-        components: {
-            ActionMessage,
-            Button,
-            FormSection,
-            Input,
-            InputError,
-            Label,
-        },
+export default defineComponent({
+    components: {
+        ActionMessage,
+        Button,
+        FormSection,
+        Input,
+        InputError,
+        Label,
+    },
 
-        data() {
-            return {
-                form: this.$inertia.form({
-                    current_password: '',
-                    password: '',
-                    password_confirmation: '',
-                }),
-            }
-        },
+    data() {
+        return {
+            form: this.$inertia.form({
+                current_password: '',
+                password: '',
+                password_confirmation: '',
+            }),
+        }
+    },
 
-        methods: {
-            updatePassword() {
-                this.form.put(route('user-password.update'), {
-                    errorBag: 'updatePassword',
-                    preserveScroll: true,
-                    onSuccess: () => this.form.reset(),
-                    onError: () => {
-                        if (this.form.errors.password) {
-                            this.form.reset('password', 'password_confirmation')
-                            this.$refs.password.focus()
-                        }
-
-                        if (this.form.errors.current_password) {
-                            this.form.reset('current_password')
-                            this.$refs.current_password.focus()
-                        }
+    methods: {
+        updatePassword() {
+            this.form.put(route('user-password.update'), {
+                errorBag: 'updatePassword',
+                preserveScroll: true,
+                onSuccess: () => this.form.reset(),
+                onError: () => {
+                    if (this.form.errors.password) {
+                        this.form.reset('password', 'password_confirmation')
+                        this.$refs.password.focus()
                     }
-                })
-            },
+
+                    if (this.form.errors.current_password) {
+                        this.form.reset('current_password')
+                        this.$refs.current_password.focus()
+                    }
+                }
+            })
         },
-    })
+    },
+})
 </script>

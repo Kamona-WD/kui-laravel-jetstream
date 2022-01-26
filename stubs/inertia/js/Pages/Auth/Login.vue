@@ -1,5 +1,5 @@
 <template>
-<AuthenticationLayout title="Log in">
+    <AuthenticationLayout title="Log in">
         <ValidationErrors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -58,34 +58,34 @@
 </template>
 
 <script setup>
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-    import InputIconWrapper from '@/Components/InputIconWrapper'
-    import Button from '@/Components/Button'
-    import Input from '@/Components/Input'
-    import Checkbox from '@/Components/Checkbox'
-    import Label from '@/Components/Label'
-    import ValidationErrors from '@/Components/ValidationErrors'
-    import { MailIcon, LockClosedIcon, LoginIcon } from '@heroicons/vue/outline'
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import { Link, useForm } from '@inertiajs/inertia-vue3'
+import InputIconWrapper from '@/Components/InputIconWrapper'
+import Button from '@/Components/Button'
+import Input from '@/Components/Input'
+import Checkbox from '@/Components/Checkbox'
+import Label from '@/Components/Label'
+import ValidationErrors from '@/Components/ValidationErrors'
+import { MailIcon, LockClosedIcon, LoginIcon } from '@heroicons/vue/outline'
 
-    const props = defineProps({
-            canResetPassword: Boolean,
-            status: String
+const props = defineProps({
+        canResetPassword: Boolean,
+        status: String
+})
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false
+})
+
+const submit = () => {
+    form.transform(data => ({
+        ...data,
+        remember: form.remember ? 'on' : ''
+    }))
+    .post(route('login'), {
+        onFinish: () => form.reset('password'),
     })
-
-    const form = useForm({
-        email: '',
-        password: '',
-        remember: false
-    })
-
-    const submit = () => {
-        form.transform(data => ({
-            ...data,
-            remember: form.remember ? 'on' : ''
-        }))
-        .post(route('login'), {
-            onFinish: () => form.reset('password'),
-        })
-    }
+}
 </script>

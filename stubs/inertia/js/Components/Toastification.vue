@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import { CheckIcon, XIcon } from '@heroicons/vue/outline'
 
 const props = defineProps({

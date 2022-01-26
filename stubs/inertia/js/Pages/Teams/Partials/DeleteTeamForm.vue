@@ -44,39 +44,39 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import ActionSection from '@/Components/ActionSection'
-    import ConfirmationModal from '@/Components/ConfirmationModal'
-    import Button from '@/Components/Button'
+import { defineComponent } from 'vue'
+import ActionSection from '@/Components/ActionSection'
+import ConfirmationModal from '@/Components/ConfirmationModal'
+import Button from '@/Components/Button'
 
-    export default defineComponent({
-        props: ['team'],
+export default defineComponent({
+    props: ['team'],
 
-        components: {
-            ActionSection,
-            ConfirmationModal,
-            Button,
+    components: {
+        ActionSection,
+        ConfirmationModal,
+        Button,
+    },
+
+    data() {
+        return {
+            confirmingTeamDeletion: false,
+            deleting: false,
+
+            form: this.$inertia.form()
+        }
+    },
+
+    methods: {
+        confirmTeamDeletion() {
+            this.confirmingTeamDeletion = true
         },
 
-        data() {
-            return {
-                confirmingTeamDeletion: false,
-                deleting: false,
-
-                form: this.$inertia.form()
-            }
+        deleteTeam() {
+            this.form.delete(route('teams.destroy', this.team), {
+                errorBag: 'deleteTeam'
+            });
         },
-
-        methods: {
-            confirmTeamDeletion() {
-                this.confirmingTeamDeletion = true
-            },
-
-            deleteTeam() {
-                this.form.delete(route('teams.destroy', this.team), {
-                    errorBag: 'deleteTeam'
-                });
-            },
-        },
-    })
+    },
+})
 </script>

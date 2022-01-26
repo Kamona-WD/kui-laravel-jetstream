@@ -15,6 +15,6 @@
 </template>
 
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout'
-    import CreateTeamForm from '@/Pages/Teams/Partials/CreateTeamForm'
+import AppLayout from '@/Layouts/AppLayout'
+import CreateTeamForm from '@/Pages/Teams/Partials/CreateTeamForm'
 </script>

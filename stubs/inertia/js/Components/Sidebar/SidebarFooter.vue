@@ -25,5 +25,5 @@
 <script setup>
 import { sidebarState } from '@/Composables'
 import Button from '@/Components/Button'
-import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/outline'
+import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/Outline'
 </script>

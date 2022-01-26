@@ -44,52 +44,52 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue';
-    import { Head } from '@inertiajs/inertia-vue3';
-    import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-    import Button from '@/Components/Button'
-    import Input from '@/Components/Input'
-    import Label from '@/Components/Label'
-    import ValidationErrors from '@/Components/ValidationErrors'
+import { defineComponent } from 'vue';
+import { Head } from '@inertiajs/inertia-vue3';
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
+import Button from '@/Components/Button'
+import Input from '@/Components/Input'
+import Label from '@/Components/Label'
+import ValidationErrors from '@/Components/ValidationErrors'
 
-    export default defineComponent({
-        components: {
-            Head,
-            AuthenticationLayout,
-            Button,
-            Input,
-            Label,
-            ValidationErrors,
-        },
+export default defineComponent({
+    components: {
+        Head,
+        AuthenticationLayout,
+        Button,
+        Input,
+        Label,
+        ValidationErrors,
+    },
 
-        data() {
-            return {
-                recovery: false,
-                form: this.$inertia.form({
-                    code: '',
-                    recovery_code: '',
-                })
-            }
-        },
-
-        methods: {
-            toggleRecovery() {
-                this.recovery ^= true
-
-                this.$nextTick(() => {
-                    if (this.recovery) {
-                        this.$refs.recovery_code.focus()
-                        this.form.code = '';
-                    } else {
-                        this.$refs.code.focus()
-                        this.form.recovery_code = ''
-                    }
-                })
-            },
-
-            submit() {
-                this.form.post(this.route('two-factor.login'))
-            }
+    data() {
+        return {
+            recovery: false,
+            form: this.$inertia.form({
+                code: '',
+                recovery_code: '',
+            })
         }
-    })
+    },
+
+    methods: {
+        toggleRecovery() {
+            this.recovery ^= true
+
+            this.$nextTick(() => {
+                if (this.recovery) {
+                    this.$refs.recovery_code.focus()
+                    this.form.code = '';
+                } else {
+                    this.$refs.code.focus()
+                    this.form.recovery_code = ''
+                }
+            })
+        },
+
+        submit() {
+            this.form.post(this.route('two-factor.login'))
+        }
+    }
+})
 </script>
