@@ -7,6 +7,7 @@ Different UI for [larave/jetstream](https://github.com/laravel/jetstream).
 [![Stars](https://img.shields.io/github/stars/Kamona-WD/kui-laravel-jetstream)](https://github.com/Kamona-WD/kui-laravel-jetstream/stargazers)
 [![Total Downloads](https://img.shields.io/packagist/dt/kamona/kui-laravel-jetstream.svg)](https://packagist.org/packages/kamona/kui-laravel-jetstream)
 
+#### [Figma file](https://www.figma.com/community/file/1019844542917981418/)
 #### [Breeze Version](https://github.com/Kamona-WD/kui-laravel-breeze)
 
 #### Note
