@@ -7,7 +7,7 @@
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white dark:bg-dark-eval-1 shadow-md overflow-hidden sm:rounded-lg prose">
+            <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white dark:bg-dark-eval-1 shadow-md overflow-hidden sm:rounded-lg prose dark:prose-invert">
                 {!! $terms !!}
             </div>
         </div>

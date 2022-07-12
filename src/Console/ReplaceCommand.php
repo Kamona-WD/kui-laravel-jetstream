@@ -15,7 +15,8 @@ class ReplaceCommand extends Command
      */
     protected $signature = 'kui-jetstream:replace {stack : The development stack that should be replaced (livewire,inertia)}
                             {--composer=global : Absolute path to the Composer binary which should be used to install packages}
-                            {--vite : Vitejs}';
+                            {--vite : Vitejs}
+                            {--teams : Indicates if team support should be replaced}';
 
     /**
      * The console command description.
@@ -66,9 +67,9 @@ class ReplaceCommand extends Command
         $this->updateNodePackages(function ($packages) {
             $extraPackages = [
                 '@heroicons/vue' => '^1.0.4',
-                '@headlessui/vue' => '^1.4.3',
+                // '@headlessui/vue' => '^1.4.3',
                 '@vueuse/core' => '^6.5.3',
-                'perfect-scrollbar' => '^1.5.2',
+                'perfect-scrollbar' => '^1.5.5',
                 'vue-toastification' => '^2.0.0-rc.1'
             ] + $packages;
 
@@ -110,6 +111,11 @@ class ReplaceCommand extends Command
             copy(__DIR__ . '/../../stubs/inertia/js/app.vite.js', resource_path('js/app.js'));
             copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
         }
+
+        if($this->option('teams')) {
+            (new Filesystem)->ensureDirectoryExists(resource_path('js/Pages/Teams'));
+            (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/inertia/js/Teams', resource_path('js/Pages/Teams'));
+        }
         
         $this->info('Jetstream ui scaffolding replaced successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
@@ -121,7 +127,7 @@ class ReplaceCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                 '@alpinejs/collapse' => '^3.4.2',
-                'perfect-scrollbar' => '^1.5.2'
+                'perfect-scrollbar' => '^1.5.5'
             ] + $packages;
         });
 
@@ -131,19 +137,16 @@ class ReplaceCommand extends Command
         (new Filesystem)->ensureDirectoryExists(resource_path('views/components'));
         (new Filesystem)->ensureDirectoryExists(resource_path('views/layouts'));
         (new Filesystem)->ensureDirectoryExists(resource_path('views/profile'));
-        (new Filesystem)->ensureDirectoryExists(resource_path('views/teams'));
 
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/api', resource_path('views/api'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/auth', resource_path('views/auth'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/components', resource_path('views/components'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/profile', resource_path('views/profile'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/teams', resource_path('views/teams'));
 
         copy(__DIR__ . '/../../stubs/livewire/views/dashboard.blade.php', resource_path('views/dashboard.blade.php'));
         copy(__DIR__ . '/../../stubs/livewire/views/navigation-menu.blade.php', resource_path('views/navigation-menu.blade.php'));
         copy(__DIR__ . '/../../stubs/livewire/views/policy.blade.php', resource_path('views/policy.blade.php'));
         copy(__DIR__ . '/../../stubs/livewire/views/terms.blade.php', resource_path('views/terms.blade.php'));
-        copy(__DIR__ . '/../../stubs/livewire/views/welcome.blade.php', resource_path('views/welcome.blade.php'));
 
         // Assets
         copy(__DIR__ . '/../../stubs/livewire/tailwind.config.js', base_path('tailwind.config.js'));
@@ -152,14 +155,21 @@ class ReplaceCommand extends Command
         if(!$this->isVite) {
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/app.mix.blade.php', resource_path('views/layouts/app.blade.php'));
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/guest.mix.blade.php', resource_path('views/layouts/guest.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/views/welcome.mix.blade.php', resource_path('views/welcome.blade.php'));
             copy(__DIR__ . '/../../stubs/livewire/webpack.mix.js', base_path('webpack.mix.js'));
             copy(__DIR__ . '/../../stubs/livewire/js/app.mix.js', resource_path('js/app.js'));
         } else {
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/app.vite.blade.php', resource_path('views/layouts/app.blade.php'));
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/guest.vite.blade.php', resource_path('views/layouts/guest.blade.php'));
-            copy(__DIR__ . '/../../stubs/livewire/vite.config.js', base_path('webpack.mix.js'));
+            copy(__DIR__ . '/../../stubs/livewire/views/welcome.vite.blade.php', resource_path('views/welcome.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/vite.config.js', base_path('vite.config.js'));
             copy(__DIR__ . '/../../stubs/livewire/js/app.vite.js', resource_path('js/app.js'));
             copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
+        }
+
+        if($this->option('teams')) {
+            (new Filesystem)->ensureDirectoryExists(resource_path('views/teams'));
+            (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/teams', resource_path('views/teams'));
         }
 
         // Icons

@@ -1,7 +1,5 @@
 <div>
     @if (Gate::check('addTeamMember', $team))
-        <x-section-border />
-
         <!-- Add Team Member -->
         <div class="mt-10 sm:mt-0">
             <x-form-section submit="addTeamMember">

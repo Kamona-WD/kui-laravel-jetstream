@@ -1,4 +1,4 @@
-<div>
+<div class="grid gap-10">
     <!-- Generate API Token -->
     <x-form-section submit="createApiToken">
         <x-slot name="title">
@@ -46,8 +46,6 @@
     </x-form-section>
 
     @if ($this->user->tokens->isNotEmpty())
-        <x-section-border />
-
         <!-- Manage API Tokens -->
         <div class="mt-10 sm:mt-0">
             <x-action-section>
