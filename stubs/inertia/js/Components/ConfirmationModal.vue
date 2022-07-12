@@ -1,5 +1,5 @@
 <template>
-    <modal :show="show" :max-width="maxWidth" :closeable="closeable" @close="close">
+    <Modal :show="show" :max-width="maxWidth" :closeable="closeable" @close="close">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 dark:bg-dark-eval-1">
             <div class="sm:flex sm:items-start">
                 <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -21,39 +21,32 @@
         </div>
 
         <div class="px-6 py-4 bg-gray-100 text-right dark:bg-dark-eval-2">
-            <slot name="footer">
-            </slot>
+            <slot name="footer"></slot>
         </div>
-    </modal>
+    </Modal>
 </template>
 
-<script>
-    import { defineComponent } from 'vue'
-    import Modal from './Modal.vue'
+<script setup>
+import Modal from '@/Components/Modal.vue'
 
-    export default defineComponent({
-        emits: ['close'],
+const emit = defineEmits(['close'])
 
-        components: {
-            Modal,
-        },
+defineProps({
+    show: {
+        type: Boolean,
+        default: false,
+    },
+    maxWidth: {
+        type: String,
+        default: '2xl',
+    },
+    closeable: {
+        type: Boolean,
+        default: true,
+    },
+})
 
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
-
-        methods: {
-            close() {
-                this.$emit('close')
-            },
-        }
-    })
+const close = () => {
+    emit('close')
+}
 </script>

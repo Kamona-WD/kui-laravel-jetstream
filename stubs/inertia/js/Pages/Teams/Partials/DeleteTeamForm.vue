@@ -43,40 +43,27 @@
     </ActionSection>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import ActionSection from '@/Components/ActionSection'
-import ConfirmationModal from '@/Components/ConfirmationModal'
-import Button from '@/Components/Button'
+<script setup>
+import { ref } from 'vue'
+import { useForm } from '@inertiajs/inertia-vue3'
+import ActionSection from '@/Components/ActionSection.vue'
+import ConfirmationModal from '@/Components/ConfirmationModal.vue'
+import Button from '@/Components/Button.vue'
 
-export default defineComponent({
-    props: ['team'],
-
-    components: {
-        ActionSection,
-        ConfirmationModal,
-        Button,
-    },
-
-    data() {
-        return {
-            confirmingTeamDeletion: false,
-            deleting: false,
-
-            form: this.$inertia.form()
-        }
-    },
-
-    methods: {
-        confirmTeamDeletion() {
-            this.confirmingTeamDeletion = true
-        },
-
-        deleteTeam() {
-            this.form.delete(route('teams.destroy', this.team), {
-                errorBag: 'deleteTeam'
-            });
-        },
-    },
+const props = defineProps({
+    team: Object,
 })
+
+const confirmingTeamDeletion = ref(false)
+const form = useForm()
+
+const confirmTeamDeletion = () => {
+    confirmingTeamDeletion.value = true
+}
+
+const deleteTeam = () => {
+    form.delete(route('teams.destroy', props.team), {
+        errorBag: 'deleteTeam',
+    })
+}
 </script>

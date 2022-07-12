@@ -13,19 +13,24 @@
             </div>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                    <Welcome />
-                </div>
+        <div class="p-6 flex flex-col gap-6 overflow-hidden bg-white rounded-md shadow-md lg:flex-row md:justify-between dark:bg-dark-eval-1">
+            <div>You're logged in!</div>
+
+            <div>
+                <a 
+                    href="https://jetstream.laravel.com/2.x/introduction.html"
+                    class="text-blue-600 hover:underline"
+                    target="_blank"
+                >
+                    Jetstream Documentation
+                </a>
             </div>
         </div>
     </AppLayout>
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout'
-import Welcome from '@/Components/Welcome'
-import Button from "@/Components/Button";
-import { GithubIcon } from "@/Components/Icons/Brands";
+import AppLayout from '@/Layouts/AppLayout.vue'
+import Button from "@/Components/Button.vue"
+import { GithubIcon } from "@/Components/Icons/Brands"
 </script>

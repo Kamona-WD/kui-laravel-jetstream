@@ -222,49 +222,49 @@
 </template>
 
 <script setup>
-    import { onMounted, onUnmounted } from 'vue'
-    import { Link } from '@inertiajs/inertia-vue3'
-    import { Inertia } from '@inertiajs/inertia'
-    import { useFullscreen } from '@vueuse/core'
-    import {
-        SunIcon,
-        MoonIcon,
-        SearchIcon,
-        MenuIcon,
-        XIcon,
-        ArrowsExpandIcon
-    } from '@heroicons/vue/outline'
-    import { ArrowsInnerIcon } from '@/Components/Icons/Outline'
-    import {
-        handleScroll,
-        isDark,
-        scrolling,
-        toggleDarkMode,
-        sidebarState,
-    } from '@/Composables'
-    import ApplicationLogo from '@/Components/ApplicationLogo'
-    import Button from '@/Components/Button'
-    import Dropdown from '@/Components/Dropdown'
-    import DropdownLink from '@/Components/DropdownLink'
+import { onMounted, onUnmounted } from 'vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import { useFullscreen } from '@vueuse/core'
+import {
+    SunIcon,
+    MoonIcon,
+    SearchIcon,
+    MenuIcon,
+    XIcon,
+    ArrowsExpandIcon
+} from '@heroicons/vue/outline'
+import { ArrowsInnerIcon } from '@/Components/Icons/Outline'
+import {
+    handleScroll,
+    isDark,
+    scrolling,
+    toggleDarkMode,
+    sidebarState,
+} from '@/Composables'
+import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import Button from '@/Components/Button.vue'
+import Dropdown from '@/Components/Dropdown.vue'
+import DropdownLink from '@/Components/DropdownLink.vue'
 
-    const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
+const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 
-    onMounted(() => {
-        document.addEventListener('scroll', handleScroll)
+onMounted(() => {
+    document.addEventListener('scroll', handleScroll)
+})
+onUnmounted(() => {
+    document.removeEventListener('scroll', handleScroll)
+})
+
+const logout = () => {
+    Inertia.post(route('logout'));
+}
+
+const switchToTeam = (team) => {
+    Inertia.put(route('current-team.update'), {
+        'team_id': team.id
+    }, {
+        preserveState: false
     })
-    onUnmounted(() => {
-        document.removeEventListener('scroll', handleScroll)
-    })
-
-    const logout = () => {
-        Inertia.post(route('logout'));
-    }
-
-    const switchToTeam = (team) => {
-        Inertia.put(route('current-team.update'), {
-            'team_id': team.id
-        }, {
-            preserveState: false
-        })
-    }
+}
 </script>

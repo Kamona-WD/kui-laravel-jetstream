@@ -45,46 +45,33 @@
     </FormSection>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import Button from '@/Components/Button'
-import FormSection from '@/Components/FormSection'
-import Input from '@/Components/Input'
-import InputError from '@/Components/InputError'
-import Label from '@/Components/Label'
+<script setup>
+import { useForm } from '@inertiajs/inertia-vue3'
+import Button from '@/Components/Button.vue'
+import FormSection from '@/Components/FormSection.vue'
+import Input from '@/Components/Input.vue'
+import InputError from '@/Components/InputError.vue'
+import Label from '@/Components/Label.vue'
 import { successToast } from '@/Toast'
 
-export default defineComponent({
-    components: {
-        Button,
-        FormSection,
-        Input,
-        InputError,
-        Label,
-    },
+const props = defineProps({
+    team: Object,
+    permissions: Object,
+})
 
-    props: ['team', 'permissions'],
+const form = useForm({
+    name: props.team.name,
+})
 
-    data() {
-        return {
-            form: this.$inertia.form({
-                name: this.team.name,
+const updateTeamName = () => {
+    form.put(route('teams.update', props.team), {
+        errorBag: 'updateTeamName',
+        preserveScroll: true,
+        onSuccess: () => {
+            successToast({
+                text: 'Team\'s name updated successfully! :)'
             })
         }
-    },
-
-    methods: {
-        updateTeamName() {
-            this.form.put(route('teams.update', this.team), {
-                errorBag: 'updateTeamName',
-                preserveScroll: true,
-                onSuccess: () => {
-                    successToast({
-                        text: 'Team\'s name updated successfully! :)'
-                    })
-                }
-            });
-        },
-    },
-})
+    })
+}
 </script>

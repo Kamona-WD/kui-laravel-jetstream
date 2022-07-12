@@ -34,7 +34,7 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
 import { sidebarState } from '@/Composables'
-import ApplicationLogo from '@/Components/ApplicationLogo'
+import ApplicationLogo from '@/Components/ApplicationLogo.vue'
 import Button from '@/Components/Button.vue'
 import { MenuFoldLineLeftIcon, MenuFoldLineRightIcon } from '@/Components/Icons/Outline'
 import { XIcon } from '@heroicons/vue/outline'

@@ -28,71 +28,60 @@
     </teleport>
 </template>
 
-<script>
-import { defineComponent, onMounted, onUnmounted } from "vue";
+<script setup>
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 
-export default defineComponent({
-        emits: ['close'],
+const props = defineProps({
+    show: {
+        type: Boolean,
+        default: false,
+    },
+    maxWidth: {
+        type: String,
+        default: '2xl',
+    },
+    closeable: {
+        type: Boolean,
+        default: true,
+    },
+})
 
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
+const emit = defineEmits(['close'])
 
-        watch: {
-            show: {
-                immediate: true,
-                handler: (show) => {
-                    if (show) {
-                        document.body.style.overflow = 'hidden'
-                    } else {
-                        document.body.style.overflow = null
-                    }
-                }
-            }
-        },
+watch(() => props.show, () => {
+    if (props.show) {
+        document.body.style.overflow = 'hidden'
+    } else {
+        document.body.style.overflow = null
+    }
+})
 
-        setup(props, {emit}) {
-            const close = () => {
-                if (props.closeable) {
-                    emit('close')
-                }
-            }
+const close = () => {
+    if (props.closeable) {
+        emit('close')
+    }
+}
 
-            const closeOnEscape = (e) => {
-                if (e.key === 'Escape' && props.show) {
-                    close()
-                }
-            }
+const closeOnEscape = (e) => {
+    if (e.key === 'Escape' && props.show) {
+        close()
+    }
+}
 
-            onMounted(() => document.addEventListener('keydown', closeOnEscape))
-            onUnmounted(() => {
-                document.removeEventListener('keydown', closeOnEscape)
-                document.body.style.overflow = null
-            })
+onMounted(() => document.addEventListener('keydown', closeOnEscape))
 
-            return {
-                close,
-            }
-        },
+onUnmounted(() => {
+    document.removeEventListener('keydown', closeOnEscape)
+    document.body.style.overflow = null
+})
 
-        computed: {
-            maxWidthClass() {
-                return {
-                    'sm': 'sm:max-w-sm',
-                    'md': 'sm:max-w-md',
-                    'lg': 'sm:max-w-lg',
-                    'xl': 'sm:max-w-xl',
-                    '2xl': 'sm:max-w-2xl',
-                }[this.maxWidth]
-            }
-        }
-    })
+const maxWidthClass = computed(() => {
+    return {
+        'sm': 'sm:max-w-sm',
+        'md': 'sm:max-w-md',
+        'lg': 'sm:max-w-lg',
+        'xl': 'sm:max-w-xl',
+        '2xl': 'sm:max-w-2xl',
+    }[props.maxWidth];
+});
 </script>

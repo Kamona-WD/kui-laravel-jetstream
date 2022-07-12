@@ -14,7 +14,8 @@ class ReplaceCommand extends Command
      * @var string
      */
     protected $signature = 'kui-jetstream:replace {stack : The development stack that should be replaced (livewire,inertia)}
-                            {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
+                            {--composer=global : Absolute path to the Composer binary which should be used to install packages}
+                            {--vite : Vitejs}';
 
     /**
      * The console command description.
@@ -22,6 +23,8 @@ class ReplaceCommand extends Command
      * @var string
      */
     protected $description = 'Replace laravel\\jetstream views.';
+
+    protected $isVite = false;
 
     /**
      * Create a new command instance.
@@ -40,6 +43,14 @@ class ReplaceCommand extends Command
      */
     public function handle()
     {
+        $this->writeLogo();
+
+        $this->replaceFavIcon();
+
+        if (file_exists(base_path('vite.config.js')) || $this->option('vite')) {
+            $this->isVite = true;
+        }
+
         if ($this->argument('stack') === 'inertia') {
             return $this->replaceInertia();
         }
@@ -53,24 +64,22 @@ class ReplaceCommand extends Command
     {
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
-            return [
+            $extraPackages = [
                 '@heroicons/vue' => '^1.0.4',
-                '@headlessui/vue' => '^1.4.1',
+                '@headlessui/vue' => '^1.4.3',
                 '@vueuse/core' => '^6.5.3',
-                '@vue/babel-plugin-jsx' => '^1.1.0',
-                'autoprefixer' => '^10.3.7',
-                'postcss' => '^8.3.9',
-                'tailwindcss' => '^3.0.7',
-                '@tailwindcss/forms' => '^0.4.0',
-                '@tailwindcss/typography' => '^0.5.0',
                 'perfect-scrollbar' => '^1.5.2',
-                'vue' => '^3.2.26',
                 'vue-toastification' => '^2.0.0-rc.1'
             ] + $packages;
-        });
 
-        // Views...
-        copy(__DIR__ . '/../../stubs/inertia/views/app.blade.php', resource_path('views/app.blade.php'));
+            if (!$this->isVite) {
+                $extraPackages += ['@vue/babel-plugin-jsx' => '^1.1.0'];
+            } else {
+                $extraPackages += ['@vitejs/plugin-vue-jsx' => '^1.3.10'];
+            }
+
+            return $extraPackages + $packages;
+        });
 
         // Components + Pages...
         (new Filesystem)->ensureDirectoryExists(resource_path('js/Components'));
@@ -85,14 +94,23 @@ class ReplaceCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/inertia/js/Pages', resource_path('js/Pages'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/inertia/js/Toast', resource_path('js/Toast'));
 
-        // Tailwind / Webpack...
+
         copy(__DIR__ . '/../../stubs/inertia/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__ . '/../../stubs/inertia/css/app.css', resource_path('css/app.css'));
-        copy(__DIR__ . '/../../stubs/inertia/js/app.js', resource_path('js/app.js'));
-        copy(__DIR__ . '/../../stubs/inertia/.babelrc', base_path('.babelrc'));
-        copy(__DIR__ . '/../../stubs/inertia/webpack.config.js', base_path('webpack.config.js'));
-        copy(__DIR__ . '/../../stubs/inertia/webpack.mix.js', base_path('webpack.mix.js'));
 
+        if(!$this->isVite) {
+            copy(__DIR__ . '/../../stubs/inertia/views/app.mix.blade.php', resource_path('views/app.blade.php'));
+            copy(__DIR__ . '/../../stubs/inertia/.babelrc', base_path('.babelrc'));
+            copy(__DIR__ . '/../../stubs/inertia/webpack.config.js', base_path('webpack.config.js'));
+            copy(__DIR__ . '/../../stubs/inertia/webpack.mix.js', base_path('webpack.mix.js'));
+            copy(__DIR__ . '/../../stubs/inertia/js/app.mix.js', resource_path('js/app.js'));
+        } else {
+            copy(__DIR__ . '/../../stubs/inertia/views/app.vite.blade.php', resource_path('views/app.blade.php'));
+            copy(__DIR__ . '/../../stubs/inertia/vite.config.js', base_path('vite.config.js'));
+            copy(__DIR__ . '/../../stubs/inertia/js/app.vite.js', resource_path('js/app.js'));
+            copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
+        }
+        
         $this->info('Jetstream ui scaffolding replaced successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
@@ -103,12 +121,6 @@ class ReplaceCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                 '@alpinejs/collapse' => '^3.4.2',
-                'alpinejs' => '^3.4.2',
-                'autoprefixer' => '^10.3.7',
-                'postcss' => '^8.3.9',
-                'tailwindcss' => '^3.0.7',
-                '@tailwindcss/forms' => '^0.4.0',
-                '@tailwindcss/typography' => '^0.5.0',
                 'perfect-scrollbar' => '^1.5.2'
             ] + $packages;
         });
@@ -124,7 +136,6 @@ class ReplaceCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/api', resource_path('views/api'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/auth', resource_path('views/auth'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/components', resource_path('views/components'));
-        (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/layouts', resource_path('views/layouts'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/profile', resource_path('views/profile'));
         (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/teams', resource_path('views/teams'));
 
@@ -136,9 +147,20 @@ class ReplaceCommand extends Command
 
         // Assets
         copy(__DIR__ . '/../../stubs/livewire/tailwind.config.js', base_path('tailwind.config.js'));
-        copy(__DIR__ . '/../../stubs/livewire/webpack.mix.js', base_path('webpack.mix.js'));
         copy(__DIR__ . '/../../stubs/livewire/css/app.css', resource_path('css/app.css'));
-        copy(__DIR__ . '/../../stubs/livewire/js/app.js', resource_path('js/app.js'));
+        
+        if(!$this->isVite) {
+            copy(__DIR__ . '/../../stubs/livewire/views/layouts/app.mix.blade.php', resource_path('views/layouts/app.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/views/layouts/guest.mix.blade.php', resource_path('views/layouts/guest.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/webpack.mix.js', base_path('webpack.mix.js'));
+            copy(__DIR__ . '/../../stubs/livewire/js/app.mix.js', resource_path('js/app.js'));
+        } else {
+            copy(__DIR__ . '/../../stubs/livewire/views/layouts/app.vite.blade.php', resource_path('views/layouts/app.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/views/layouts/guest.vite.blade.php', resource_path('views/layouts/guest.blade.php'));
+            copy(__DIR__ . '/../../stubs/livewire/vite.config.js', base_path('webpack.mix.js'));
+            copy(__DIR__ . '/../../stubs/livewire/js/app.vite.js', resource_path('js/app.js'));
+            copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
+        }
 
         // Icons
         $this->requireComposerPackages('blade-ui-kit/blade-heroicons:^1.2');
@@ -204,21 +226,6 @@ class ReplaceCommand extends Command
     }
 
     /**
-     * Delete the "node_modules" directory and remove the associated lock files.
-     *
-     * @return void
-     */
-    protected static function flushNodeModules()
-    {
-        tap(new Filesystem, function ($files) {
-            $files->deleteDirectory(base_path('node_modules'));
-
-            $files->delete(base_path('yarn.lock'));
-            $files->delete(base_path('package-lock.json'));
-        });
-    }
-
-    /**
      * Replace a given string within a given file.
      *
      * @param  string  $search
@@ -229,5 +236,25 @@ class ReplaceCommand extends Command
     protected function replaceInFile($search, $replace, $path)
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
+    }
+
+    protected function replaceFavIcon()
+    {
+        (new Filesystem)->ensureDirectoryExists(base_path('public'));
+        copy(__DIR__ . '/../../stubs/common/favicon.ico', base_path('public/favicon.ico'));
+    }
+
+    protected function writeLogo()
+    {
+        $logo = PHP_EOL . '<fg=bright-blue>
+██╗  ██╗     ██╗   ██╗██╗
+██║ ██╔╝     ██║   ██║██║
+█████╔╝█████╗██║   ██║██║
+██╔═██╗╚════╝██║   ██║██║
+██║  ██╗     ╚██████╔╝██║
+╚═╝  ╚═╝      ╚═════╝ ╚═╝
+        </>' . PHP_EOL;
+
+        return $this->line($logo);
     }
 }

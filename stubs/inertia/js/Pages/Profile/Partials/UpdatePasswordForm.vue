@@ -11,13 +11,13 @@
         <template #form>
             <div class="col-span-6 sm:col-span-4">
                 <Label for="current_password" value="Current Password" />
-                <Input id="current_password" type="password" class="mt-1 block w-full" v-model="form.current_password" ref="current_password" autocomplete="current-password" />
+                <Input id="current_password" ref="currentPasswordInput" type="password" class="mt-1 block w-full" v-model="form.current_password" autocomplete="current-password" />
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
                 <Label for="password" value="New Password" />
-                <Input id="password" type="password" class="mt-1 block w-full" v-model="form.password" ref="password" autocomplete="new-password" />
+                <Input id="password" ref="passwordInput" type="password" class="mt-1 block w-full" v-model="form.password" autocomplete="new-password" />
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
@@ -29,10 +29,6 @@
         </template>
 
         <template #actions>
-            <ActionMessage :on="form.recentlySuccessful" class="mr-3">
-                Saved.
-            </ActionMessage>
-
             <Button :disabled="form.processing">
                 Save
             </Button>
@@ -40,54 +36,47 @@
     </FormSection>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import ActionMessage from '@/Components/ActionMessage'
-import Button from '@/Components/Button'
-import FormSection from '@/Components/FormSection'
-import Input from '@/Components/Input'
-import InputError from '@/Components/InputError'
-import Label from '@/Components/Label'
+<script setup>
+import { ref } from 'vue'
+import { useForm } from '@inertiajs/inertia-vue3'
+import Button from '@/Components/Button.vue'
+import FormSection from '@/Components/FormSection.vue'
+import Input from '@/Components/Input.vue'
+import InputError from '@/Components/InputError.vue'
+import Label from '@/Components/Label.vue'
+import { successToast } from '@/Toast'
 
-export default defineComponent({
-    components: {
-        ActionMessage,
-        Button,
-        FormSection,
-        Input,
-        InputError,
-        Label,
-    },
+const passwordInput = ref(null)
+const currentPasswordInput = ref(null)
 
-    data() {
-        return {
-            form: this.$inertia.form({
-                current_password: '',
-                password: '',
-                password_confirmation: '',
-            }),
-        }
-    },
+const form = useForm({
+    current_password: '',
+    password: '',
+    password_confirmation: '',
+})
 
-    methods: {
-        updatePassword() {
-            this.form.put(route('user-password.update'), {
-                errorBag: 'updatePassword',
-                preserveScroll: true,
-                onSuccess: () => this.form.reset(),
-                onError: () => {
-                    if (this.form.errors.password) {
-                        this.form.reset('password', 'password_confirmation')
-                        this.$refs.password.focus()
-                    }
-
-                    if (this.form.errors.current_password) {
-                        this.form.reset('current_password')
-                        this.$refs.current_password.focus()
-                    }
-                }
+const updatePassword = () => {
+    form.put(route('user-password.update'), {
+        errorBag: 'updatePassword',
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset()
+            successToast({
+                title: 'Success',
+                text: 'Your password updated.'
             })
         },
-    },
-})
+        onError: () => {
+            if (form.errors.password) {
+                form.reset('password', 'password_confirmation')
+                passwordInput.value.focus()
+            }
+
+            if (form.errors.current_password) {
+                form.reset('current_password')
+                currentPasswordInput.value.focus()
+            }
+        },
+    })
+}
 </script>

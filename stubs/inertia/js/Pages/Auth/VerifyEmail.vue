@@ -1,6 +1,5 @@
 <template>
     <AuthenticationLayout title="Email Verification">
-
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
         </div>
@@ -21,40 +20,21 @@
     </AuthenticationLayout>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-import Button from '@/Components/Button'
+<script setup> 
+import { computed } from 'vue'
+import { Link, useForm } from '@inertiajs/inertia-vue3'
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue'
+import Button from '@/Components/Button.vue'
 
-export default defineComponent({
-    components: {
-        Head,
-        Button,
-        Link,
-        AuthenticationLayout,
-    },
-
-    props: {
-        status: String
-    },
-
-    data() {
-        return {
-            form: this.$inertia.form()
-        }
-    },
-
-    methods: {
-        submit() {
-            this.form.post(this.route('verification.send'))
-        },
-    },
-
-    computed: {
-        verificationLinkSent() {
-            return this.status === 'verification-link-sent';
-        }
-    }
+const props = defineProps({
+    status: String,
 })
+
+const form = useForm()
+
+const submit = () => {
+    form.post(route('verification.send'))
+}
+
+const verificationLinkSent = computed(() => props.status === 'verification-link-sent')
 </script>

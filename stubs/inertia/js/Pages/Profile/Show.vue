@@ -8,85 +8,48 @@
             </h2>
         </template>
 
-        <div>
-            <TabGroup as="div" class="grid gap-6 lg:grid-cols-4">
-                <TabList class="flex flex-col items-start gap-2 lg:col-span-1">
-                    <TabButton
-                        v-if="$page.props.jetstream.canUpdateProfileInformation"
-                        title="Profile Information"
-                    />
+        <div class="grid gap-10">
+            <div
+                v-if="$page.props.jetstream.canUpdateProfileInformation"
+            >
+                <UpdateProfileInformationForm
+                    :user="$page.props.user"
+                />
+            </div>
 
-                    <TabButton
-                        v-if="$page.props.jetstream.canUpdatePassword"
-                        title="Update Password"
-                    />
+            <div v-if="$page.props.jetstream.canUpdatePassword">
+                <UpdatePasswordForm />
+            </div>
 
-                    <TabButton
-                        v-if="
-                            $page.props.jetstream
-                                .canManageTwoFactorAuthentication
-                        "
-                        title="Two Factor Authentication"
-                    />
+            <div
+                v-if="$page.props.jetstream.canManageTwoFactorAuthentication"
+            >
+                <TwoFactorAuthenticationForm :requires-confirmation="confirmsTwoFactorAuthentication" />
+            </div>
 
-                    <TabButton title="Browser Sessions" />
+            <div>
+                <LogoutOtherBrowserSessionsForm :sessions="sessions" />
+            </div>
 
-                    <TabButton
-                        v-if="$page.props.jetstream.hasAccountDeletionFeatures"
-                        title="Delete Account"
-                    />
-                </TabList>
-
-                <TabPanels class="lg:col-span-3">
-                    <TabPanel
-                        v-if="$page.props.jetstream.canUpdateProfileInformation"
-                    >
-                        <UpdateProfileInformationForm
-                            :user="$page.props.user"
-                        />
-                    </TabPanel>
-
-                    <TabPanel v-if="$page.props.jetstream.canUpdatePassword">
-                        <UpdatePasswordForm />
-                    </TabPanel>
-
-                    <TabPanel
-                        v-if="
-                            $page.props.jetstream
-                                .canManageTwoFactorAuthentication
-                        "
-                    >
-                        <TwoFactorAuthenticationForm />
-                    </TabPanel>
-
-                    <TabPanel>
-                        <LogoutOtherBrowserSessionsForm :sessions="sessions" />
-                    </TabPanel>
-
-                    <TabPanel
-                        v-if="$page.props.jetstream.hasAccountDeletionFeatures"
-                    >
-                        <DeleteUserForm />
-                    </TabPanel>
-                </TabPanels>
-            </TabGroup>
+            <div
+                v-if="$page.props.jetstream.hasAccountDeletionFeatures"
+            >
+                <DeleteUserForm />
+            </div>
         </div>
     </AppLayout>
 </template>
 
 <script setup>
-import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue'
-import AppLayout from '@/Layouts/AppLayout'
-import TabButton from '@/Pages/Profile/Partials/TabButton'
-import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm'
-import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm'
-import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm'
-import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm'
-import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm'
+import AppLayout from '@/Layouts/AppLayout.vue'
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue'
+import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm.vue'
+import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue'
+import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
+import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
 
-const props = defineProps({
-    sessions: {
-        type: Array,
-    },
+defineProps({
+    confirmsTwoFactorAuthentication: Boolean,
+    sessions: Array,
 })
 </script>

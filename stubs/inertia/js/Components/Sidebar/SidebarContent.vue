@@ -16,19 +16,11 @@
                 />
             </template>
         </SidebarLink>
-
-        <SidebarCollapsible title="Dropdown">
-            <SidebarCollapsibleItem href="#" title="Link 1" :active="false" />
-            <SidebarCollapsibleItem href="#" title="Link 2" :active="true" />
-            <SidebarCollapsibleItem href="#" title="Link 3" :active="false" />
-        </SidebarCollapsible>
     </PerfrectScrollbar>
 </template>
 
 <script setup>
 import PerfrectScrollbar from '@/Components/PerfectScrollbar'
-import SidebarLink from '@/Components/Sidebar/SidebarLink'
+import SidebarLink from '@/Components/Sidebar/SidebarLink.vue'
 import { DashboardIcon } from '@/Components/Icons/Outline'
-import SidebarCollapsible from '@/Components/Sidebar/SidebarCollapsible'
-import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem'
 </script>

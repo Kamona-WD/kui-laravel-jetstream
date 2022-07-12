@@ -46,11 +46,11 @@
 </template>
 
 <script setup>
-import AuthenticationLayout from '@/Layouts/AuthenticationLayout'
-import InputIconWrapper from '@/Components/InputIconWrapper'
-import Button from '@/Components/Button'
-import Input from '@/Components/Input'
-import Label from '@/Components/Label'
+import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue'
+import InputIconWrapper from '@/Components/InputIconWrapper.vue'
+import Button from '@/Components/Button.vue'
+import Input from '@/Components/Input.vue'
+import Label from '@/Components/Label.vue'
 import { LockClosedIcon } from '@heroicons/vue/outline'
 
 const form = useForm({

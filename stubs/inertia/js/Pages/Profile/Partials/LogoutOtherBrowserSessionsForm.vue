@@ -10,7 +10,7 @@
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
+                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
             </div>
 
             <!-- Other Browser Sessions -->
@@ -47,10 +47,6 @@
                 <Button @click="confirmLogout">
                     Log Out Other Browser Sessions
                 </Button>
-
-                <ActionMessage :on="form.recentlySuccessful" class="ml-3">
-                    Done.
-                </ActionMessage>
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
@@ -64,7 +60,7 @@
 
                     <div class="mt-4">
                         <Input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                    ref="password"
+                                    ref="passwordInput"
                                     v-model="form.password"
                                     @keyup.enter="logoutOtherBrowserSessions" />
 
@@ -86,58 +82,51 @@
     </ActionSection>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import ActionMessage from '@/Components/ActionMessage'
-import ActionSection from '@/Components/ActionSection'
-import Button from '@/Components/Button'
-import DialogModal from '@/Components/DialogModal'
-import Input from '@/Components/Input'
-import InputError from '@/Components/InputError'
+<script setup>
+import { ref } from 'vue'
+import { useForm } from '@inertiajs/inertia-vue3'
+import ActionSection from '@/Components/ActionSection.vue'
+import Button from '@/Components/Button.vue'
+import DialogModal from '@/Components/DialogModal.vue'
+import Input from '@/Components/Input.vue'
+import InputError from '@/Components/InputError.vue'
+import { successToast } from '@/Toast'
 
-export default defineComponent({
-    props: ['sessions'],
-
-    components: {
-        ActionMessage,
-        ActionSection,
-        Button,
-        DialogModal,
-        Input,
-        InputError,
-    },
-
-    data() {
-        return {
-            confirmingLogout: false,
-
-            form: this.$inertia.form({
-                password: '',
-            })
-        }
-    },
-
-    methods: {
-        confirmLogout() {
-            this.confirmingLogout = true
-
-            setTimeout(() => this.$refs.password.focus(), 250)
-        },
-
-        logoutOtherBrowserSessions() {
-            this.form.delete(route('other-browser-sessions.destroy'), {
-                preserveScroll: true,
-                onSuccess: () => this.closeModal(),
-                onError: () => this.$refs.password.focus(),
-                onFinish: () => this.form.reset(),
-            })
-        },
-
-        closeModal() {
-            this.confirmingLogout = false
-
-            this.form.reset()
-        },
-    },
+defineProps({
+    sessions: Array,
 })
+
+const confirmingLogout = ref(false)
+const passwordInput = ref(null)
+
+const form = useForm({
+    password: '',
+})
+
+const confirmLogout = () => {
+    confirmingLogout.value = true
+
+    setTimeout(() => passwordInput.value.focus(), 250)
+}
+
+const logoutOtherBrowserSessions = () => {
+    form.delete(route('other-browser-sessions.destroy'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            closeModal()
+            successToast({
+                title: 'Success',
+                text: 'Other browser sessions deleted.'
+            })
+        },
+        onError: () => passwordInput.value.focus(),
+        onFinish: () => form.reset(),
+    })
+}
+
+const closeModal = () => {
+    confirmingLogout.value = false
+
+    form.reset()
+}
 </script>

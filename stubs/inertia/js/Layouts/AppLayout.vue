@@ -20,13 +20,13 @@
 
             <!-- Page Heading -->
             <header v-if="$slots.header">
-                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="px-4 py-6 mx-auto max-w-7xl w-full sm:px-6 lg:px-8">
                     <slot name="header"></slot>
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 p-4 sm:p-6">
+            <main class="flex-1 p-4 mx-auto max-w-7xl w-full sm:p-6 lg:p-8">
                 <slot></slot>
             </main>
 
@@ -36,14 +36,17 @@
 </template>
 
 <script setup>
-import Banner from '@/Components/Banner'
 import { Head } from '@inertiajs/inertia-vue3'
-import Sidebar from '@/Components/Sidebar/Sidebar'
-import Navbar from '@/Components/Navbar'
-import PageFooter from '@/Components/PageFooter'
 import { sidebarState } from '@/Composables'
+import Banner from '@/Components/Banner.vue'
+import Sidebar from '@/Components/Sidebar/Sidebar.vue'
+import Navbar from '@/Components/Navbar.vue'
+import PageFooter from '@/Components/PageFooter.vue'
 
-const props = defineProps({
-    title: String,
+defineProps({
+    title: {
+        type: String,
+        default: ''
+    },
 })
 </script>

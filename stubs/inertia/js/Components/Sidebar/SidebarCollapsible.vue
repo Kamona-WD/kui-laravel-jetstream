@@ -63,7 +63,7 @@
 <script setup>
 import { ref } from 'vue'
 import { sidebarState } from '@/Composables'
-import SidebarLink from '@/Components/Sidebar/SidebarLink'
+import SidebarLink from '@/Components/Sidebar/SidebarLink.vue'
 import { EmptyCircleIcon } from '@/Components/Icons/Outline'
 
 const props = defineProps({

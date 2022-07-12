@@ -240,116 +240,109 @@
     </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import ActionSection from '@/Components/ActionSection'
-import Button from '@/Components/Button'
-import ConfirmationModal from '@/Components/ConfirmationModal'
-import DialogModal from '@/Components/DialogModal'
-import FormSection from '@/Components/FormSection'
-import Input from '@/Components/Input'
-import InputError from '@/Components/InputError'
-import Label from '@/Components/Label'
-import SectionBorder from '@/Components/SectionBorder'
+<script setup>
+import { ref } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import ActionSection from '@/Components/ActionSection.vue'
+import Button from '@/Components/Button.vue'
+import ConfirmationModal from '@/Components/ConfirmationModal.vue'
+import DialogModal from '@/Components/DialogModal.vue'
+import FormSection from '@/Components/FormSection.vue'
+import Input from '@/Components/Input.vue'
+import InputError from '@/Components/InputError.vue'
+import Label from '@/Components/Label.vue'
+import SectionBorder from '@/Components/SectionBorder.vue'
 import { successToast } from '@/Toast'
 
-export default defineComponent({
-    components: {
-        ActionSection,
-        Button,
-        ConfirmationModal,
-        DialogModal,
-        FormSection,
-        Input,
-        InputError,
-        Label,
-        SectionBorder,
-    },
 
-    props: [
-        'team',
-        'availableRoles',
-        'userPermissions'
-    ],
-
-    data() {
-        return {
-            addTeamMemberForm: this.$inertia.form({
-                email: '',
-                role: null,
-            }),
-
-            updateRoleForm: this.$inertia.form({
-                role: null,
-            }),
-
-            leaveTeamForm: this.$inertia.form(),
-            removeTeamMemberForm: this.$inertia.form(),
-
-            currentlyManagingRole: false,
-            managingRoleFor: null,
-            confirmingLeavingTeam: false,
-            teamMemberBeingRemoved: null,
-        }
-    },
-
-    methods: {
-        addTeamMember() {
-            this.addTeamMemberForm.post(route('team-members.store', this.team), {
-                errorBag: 'addTeamMember',
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.addTeamMemberForm.reset()
-                    successToast({
-                        text: 'Member add successfully! :)'
-                    })
-                },
-            });
-        },
-
-        cancelTeamInvitation(invitation) {
-            this.$inertia.delete(route('team-invitations.destroy', invitation), {
-                preserveScroll: true
-            });
-        },
-
-        manageRole(teamMember) {
-            this.managingRoleFor = teamMember
-            this.updateRoleForm.role = teamMember.membership.role
-            this.currentlyManagingRole = true
-        },
-
-        updateRole() {
-            this.updateRoleForm.put(route('team-members.update', [this.team, this.managingRoleFor]), {
-                preserveScroll: true,
-                onSuccess: () => (this.currentlyManagingRole = false),
-            })
-        },
-
-        confirmLeavingTeam() {
-            this.confirmingLeavingTeam = true
-        },
-
-        leaveTeam() {
-            this.leaveTeamForm.delete(route('team-members.destroy', [this.team, this.$page.props.user]))
-        },
-
-        confirmTeamMemberRemoval(teamMember) {
-            this.teamMemberBeingRemoved = teamMember
-        },
-
-        removeTeamMember() {
-            this.removeTeamMemberForm.delete(route('team-members.destroy', [this.team, this.teamMemberBeingRemoved]), {
-                errorBag: 'removeTeamMember',
-                preserveScroll: true,
-                preserveState: true,
-                onSuccess: () => (this.teamMemberBeingRemoved = null),
-            })
-        },
-
-        displayableRole(role) {
-            return this.availableRoles.find(r => r.key === role).name
-        },
-    },
+const props = defineProps({
+    team: Object,
+    availableRoles: Array,
+    userPermissions: Object,
 })
+
+const addTeamMemberForm = useForm({
+    email: '',
+    role: null,
+})
+
+const updateRoleForm = useForm({
+    role: null,
+})
+
+const leaveTeamForm = useForm()
+const removeTeamMemberForm = useForm()
+
+const currentlyManagingRole = ref(false)
+const managingRoleFor = ref(null)
+const confirmingLeavingTeam = ref(false)
+const teamMemberBeingRemoved = ref(null)
+
+const addTeamMember = () => {
+    addTeamMemberForm.post(route('team-members.store', props.team), {
+        errorBag: 'addTeamMember',
+        preserveScroll: true,
+        onSuccess: () => {
+            addTeamMemberForm.reset()
+            successToast({
+                text: 'Member added.'
+            })
+        },
+    })
+}
+
+const cancelTeamInvitation = (invitation) => {
+    Inertia.delete(route('team-invitations.destroy', invitation), {
+        preserveScroll: true,
+    })
+}
+
+const manageRole = (teamMember) => {
+    managingRoleFor.value = teamMember
+    updateRoleForm.role = teamMember.membership.role
+    currentlyManagingRole.value = true
+}
+
+const updateRole = () => {
+    updateRoleForm.put(route('team-members.update', [props.team, managingRoleFor.value]), {
+        preserveScroll: true,
+        onSuccess: () => {
+            currentlyManagingRole.value = false
+            successToast({
+                text: 'Role updated.'
+            })
+        },
+    })
+}
+
+const confirmLeavingTeam = () => {
+    confirmingLeavingTeam.value = true
+}
+
+const leaveTeam = () => {
+    leaveTeamForm.delete(route('team-members.destroy', [props.team, usePage().props.value.user]))
+}
+
+const confirmTeamMemberRemoval = (teamMember) => {
+    teamMemberBeingRemoved.value = teamMember
+}
+
+const removeTeamMember = () => {
+    removeTeamMemberForm.delete(route('team-members.destroy', [props.team, teamMemberBeingRemoved.value]), {
+        errorBag: 'removeTeamMember',
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => {
+            teamMemberBeingRemoved.value = null
+            successToast({
+                text: 'Member deleted.'
+            })
+        },
+    })
+}
+
+const displayableRole = (role) => {
+    return props.availableRoles.find(r => r.key === role).name
+}
 </script>

@@ -1,14 +1,14 @@
-<template>
-    <component :is="tagname" ref="el" @mouseover.once="update">
-        <slot />
-    </component>
-</template>
-
-<script>
-import { onMounted, onUnmounted, ref } from 'vue'
+import {
+    defineComponent,
+    onMounted,
+    onUnmounted,
+    ref,
+    withModifiers,
+} from 'vue'
 import PerfectScrollbar from 'perfect-scrollbar'
+import '@/Components/PerfectScrollbar/style.css'
 
-export default {
+export default defineComponent({
     props: {
         settings: {
             type: Object,
@@ -19,8 +19,9 @@ export default {
             default: 'div',
         },
     },
-    setup(props) {
-        const { settings, tagname } = props
+
+    setup(props, { slots }) {
+        const { settings, tagname: Tag } = props
 
         let ps = null
 
@@ -40,10 +41,14 @@ export default {
             ps.destroy()
         })
 
-        return {
-            el,
-            update,
-        }
+        return () => (
+            <Tag
+                ref={el}
+                class="relative"
+                onmouseover={withModifiers(update, ['once'])}
+            >
+                {slots.default?.()}
+            </Tag>
+        )
     },
-}
-</script>
+})

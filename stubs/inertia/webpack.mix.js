@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -17,8 +17,8 @@ mix.js('resources/js/app.js', 'public/js').vue()
         require('tailwindcss'),
     ])
     .sourceMaps()
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.version()
 }

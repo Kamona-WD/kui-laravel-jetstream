@@ -3,7 +3,7 @@
         :show="show"
         :max-width="maxWidth"
         :closeable="closeable"
-        @close="$emit('close')"
+        @close="close"
     >
         <div class="px-6 py-4">
             <div class="text-lg">
@@ -22,17 +22,26 @@
 </template>
 
 <script setup>
-import Modal from '@/Components/Modal'
+import Modal from '@/Components/Modal.vue'
 
-const props = defineProps({
+const emit = defineEmits(['close'])
+
+defineProps({
     show: {
+        type: Boolean,
         default: false,
     },
     maxWidth: {
+        type: String,
         default: '2xl',
     },
     closeable: {
+        type: Boolean,
         default: true,
     },
 })
+
+const close = () => {
+    emit('close')
+}
 </script>
