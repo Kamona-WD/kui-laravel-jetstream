@@ -68,6 +68,9 @@ class ReplaceCommand extends Command
             $extraPackages = [
                 '@heroicons/vue' => '^1.0.4',
                 // '@headlessui/vue' => '^1.4.3',
+                "@inertiajs/inertia" => "^0.11.1",
+                "@inertiajs/inertia-vue3" => "^0.6.0",
+                "@inertiajs/progress" => "^0.2.7",
                 '@vueuse/core' => '^6.5.3',
                 'perfect-scrollbar' => '^1.5.5',
                 'vue-toastification' => '^2.0.0-rc.1'
@@ -99,7 +102,7 @@ class ReplaceCommand extends Command
         copy(__DIR__ . '/../../stubs/inertia/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__ . '/../../stubs/inertia/css/app.css', resource_path('css/app.css'));
 
-        if(!$this->isVite) {
+        if (!$this->isVite) {
             copy(__DIR__ . '/../../stubs/inertia/views/app.mix.blade.php', resource_path('views/app.blade.php'));
             copy(__DIR__ . '/../../stubs/inertia/.babelrc', base_path('.babelrc'));
             copy(__DIR__ . '/../../stubs/inertia/webpack.config.js', base_path('webpack.config.js'));
@@ -112,11 +115,11 @@ class ReplaceCommand extends Command
             copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
         }
 
-        if($this->option('teams')) {
+        if ($this->option('teams')) {
             (new Filesystem)->ensureDirectoryExists(resource_path('js/Pages/Teams'));
             (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/inertia/js/Teams', resource_path('js/Pages/Teams'));
         }
-        
+
         $this->info('Jetstream ui scaffolding replaced successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
@@ -151,8 +154,8 @@ class ReplaceCommand extends Command
         // Assets
         copy(__DIR__ . '/../../stubs/livewire/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__ . '/../../stubs/livewire/css/app.css', resource_path('css/app.css'));
-        
-        if(!$this->isVite) {
+
+        if (!$this->isVite) {
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/app.mix.blade.php', resource_path('views/layouts/app.blade.php'));
             copy(__DIR__ . '/../../stubs/livewire/views/layouts/guest.mix.blade.php', resource_path('views/layouts/guest.blade.php'));
             copy(__DIR__ . '/../../stubs/livewire/views/welcome.mix.blade.php', resource_path('views/welcome.blade.php'));
@@ -167,7 +170,7 @@ class ReplaceCommand extends Command
             copy(__DIR__ . '/../../stubs/common/postcss.config.js', base_path('postcss.config.js'));
         }
 
-        if($this->option('teams')) {
+        if ($this->option('teams')) {
             (new Filesystem)->ensureDirectoryExists(resource_path('views/teams'));
             (new Filesystem)->copyDirectory(__DIR__ . '/../../stubs/livewire/views/teams', resource_path('views/teams'));
         }
